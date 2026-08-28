@@ -41,3 +41,8 @@ build/
 
 # Docker volume data
 postgres_data/
+
+# Local demo scripts & assignments
+docs/DEMO_VIDEO_SCRIPT.md
+Forward_Deployed_Engineer_Take_Home_Assignment.md
+
