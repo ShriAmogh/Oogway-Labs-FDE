@@ -9,39 +9,39 @@ export default {
     extend: {
       colors: {
         // Palette from user selection:
-        // #13005A (Deep Midnight / Dark Royal Navy)
-        // #00337C (Classic Deep Blue / Sapphire)
-        // #1C82AD (Electric Ocean Cyan / Cerulean Blue)
-        // #03C988 (Vibrant Emerald Mint / Neon Jade)
+        // #E3F2FD (Ice Blue / Crisp Tint)
+        // #90CAF9 (Sky Azure / Soft Blue)
+        // #2196F3 (Electric Blue / Azure Primary)
+        // #0D47A1 (Deep Royal Navy / Cobalt)
 
         palette: {
-          midnight: '#13005A',
-          navy:     '#00337C',
-          cyan:     '#1C82AD',
-          emerald:  '#03C988',
+          ice:   '#E3F2FD',
+          sky:   '#90CAF9',
+          azure: '#2196F3',
+          navy:  '#0D47A1',
         },
 
-        // Dark modern theme background & panels using midnight & navy
-        bg:         '#07021C', // Darkest midnight tint
-        panel:      '#0E0630', // Deep midnight navy container
-        raised:     '#13005A', // Midnight raised surface
-        'input-bg': '#0A0322',
+        // Dark modern royal blue theme
+        bg:         '#070F1E', // Deepest midnight navy
+        panel:      '#0D1B33', // Royal blue container
+        raised:     '#0D47A1', // Royal navy surface
+        'input-bg': '#0A1528',
 
         brand: {
-          DEFAULT: '#03C988', // Vibrant emerald mint for primary actions & highlights
-          light:   '#44E5AB',
-          dark:    '#029E6B',
+          DEFAULT: '#2196F3', // Electric blue for primary actions
+          light:   '#90CAF9',
+          dark:    '#0D47A1',
         },
 
         accent: {
-          DEFAULT: '#1C82AD', // Cerulean cyan for tools & citations
-          light:   '#4FB1DC',
-          dark:    '#00337C',
+          DEFAULT: '#90CAF9', // Sky blue for citations & secondary
+          light:   '#E3F2FD',
+          dark:    '#2196F3',
         },
 
-        secondary: {
-          DEFAULT: '#00337C',
-          light:   '#1C82AD',
+        paper: {
+          DEFAULT: '#E3F2FD',
+          muted:   '#90CAF9',
         }
       },
       fontFamily: {
@@ -50,9 +50,9 @@ export default {
         mono:      ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        'glow-emerald': '0 0 35px -8px rgba(3,201,136,0.45)',
-        'glow-cyan':    '0 0 35px -8px rgba(28,130,173,0.45)',
-        'glow-midnight':'0 0 35px -8px rgba(19,0,90,0.6)',
+        'glow-azure': '0 0 35px -8px rgba(33,150,243,0.45)',
+        'glow-sky':   '0 0 35px -8px rgba(144,202,249,0.45)',
+        'glow-navy':  '0 0 35px -8px rgba(13,71,161,0.6)',
       }
     },
   },

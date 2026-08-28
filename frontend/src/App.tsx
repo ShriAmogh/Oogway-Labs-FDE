@@ -278,10 +278,10 @@ export const App: React.FC = () => {
   const currentSession = sessions.find(s => s.id === currentSessionId);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#07021C] text-[#F3F4F6] relative">
-      {/* Ambient background orbs in Midnight Cyan and Emerald */}
-      <div className="fixed top-0 right-0 w-[550px] h-[550px] rounded-full bg-[#1C82AD]/[0.10] blur-[90px] pointer-events-none -z-0" />
-      <div className="fixed bottom-0 left-48 w-[400px] h-[400px] rounded-full bg-[#03C988]/[0.08] blur-[70px] pointer-events-none -z-0" />
+    <div className="flex h-screen w-screen overflow-hidden bg-[#070F1E] text-[#E3F2FD] relative">
+      {/* Ambient background orbs in Ocean Azure and Royal Navy */}
+      <div className="fixed top-0 right-0 w-[550px] h-[550px] rounded-full bg-[#2196F3]/[0.09] blur-[90px] pointer-events-none -z-0" />
+      <div className="fixed bottom-0 left-48 w-[400px] h-[400px] rounded-full bg-[#0D47A1]/[0.15] blur-[70px] pointer-events-none -z-0" />
       <div className="relative z-10 flex w-full h-full">
         {/* Left Sidebar */}
         <Sidebar
@@ -299,7 +299,7 @@ export const App: React.FC = () => {
         />
 
         {/* Main Chat Center Panel */}
-        <main className="flex-1 flex flex-col min-w-0 h-full relative bg-[#07021C]">
+        <main className="flex-1 flex flex-col min-w-0 h-full relative bg-[#070F1E]">
           <ChatHeader
             sessionTitle={currentSession?.title || 'New Conversation'}
             provider={provider}

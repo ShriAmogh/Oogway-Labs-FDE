@@ -5,22 +5,22 @@
 @tailwind utilities;
 
 /* ───────────────────────────────────────── */
-/*  DESIGN SYSTEM TOKENS - MIDNIGHT CYAN MINT*/
-/*  #13005A | #00337C | #1C82AD | #03C988    */
+/*  DESIGN SYSTEM TOKENS - OCEAN AZURE PALETTE*/
+/*  #E3F2FD | #90CAF9 | #2196F3 | #0D47A1    */
 /* ───────────────────────────────────────── */
 :root {
-  --color-midnight: #13005A;
-  --color-navy:     #00337C;
-  --color-cyan:     #1C82AD;
-  --color-emerald:  #03C988;
+  --color-ice:   #E3F2FD;
+  --color-sky:   #90CAF9;
+  --color-azure: #2196F3;
+  --color-navy:  #0D47A1;
 }
 
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
   html { font-family: 'Inter', -apple-system, sans-serif; }
   body {
-    background: #08031D;
-    color: #F3F4F6;
+    background: #070F1E;
+    color: #E3F2FD;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
   }
@@ -31,14 +31,14 @@
 /* ───────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(28, 130, 173, 0.4); border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(3, 201, 136, 0.7); }
+::-webkit-scrollbar-thumb { background: rgba(33, 150, 243, 0.4); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(33, 150, 243, 0.7); }
 
 /* ───────────────────────────────────────── */
 /*  PROSE (Editorial Markdown Typography)    */
 /* ───────────────────────────────────────── */
 .prose {
-  color: #E2E8F0;
+  color: #D6E4F0;
   max-width: none;
   font-size: 0.925rem;
   line-height: 1.8;
@@ -61,45 +61,45 @@
   margin-top: 1.2em;
   margin-bottom: 0.4em;
   padding-bottom: 0.3em;
-  border-bottom: 1px solid rgba(28, 130, 173, 0.3);
+  border-bottom: 1px solid rgba(33, 150, 243, 0.3);
 }
 .prose h3 {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #03C988;
+  color: #90CAF9;
   margin-top: 1em;
   margin-bottom: 0.3em;
 }
-.prose p { margin: 0.65em 0; color: #E2E8F0; }
+.prose p { margin: 0.65em 0; color: #D6E4F0; }
 .prose strong { color: #FFFFFF; font-weight: 600; }
-.prose em { color: #1C82AD; font-style: italic; }
+.prose em { color: #90CAF9; font-style: italic; }
 .prose ul, .prose ol { padding-left: 1.3em; margin: 0.5em 0; }
 .prose li { margin: 0.3em 0; }
-.prose hr { border-color: rgba(28, 130, 173, 0.25); margin: 1.5em 0; }
+.prose hr { border-color: rgba(33, 150, 243, 0.25); margin: 1.5em 0; }
 
 .prose blockquote {
-  border-left: 3px solid #03C988;
-  background: rgba(19, 0, 90, 0.4);
+  border-left: 3px solid #2196F3;
+  background: rgba(13, 71, 161, 0.25);
   padding: 0.75rem 1.1rem;
   border-radius: 0 0.75rem 0.75rem 0;
-  color: #F8FAFC;
+  color: #E3F2FD;
   font-style: normal;
   margin: 1rem 0;
 }
 
 .prose code:not(pre code) {
-  background: rgba(0, 51, 124, 0.4);
-  color: #03C988;
+  background: rgba(13, 71, 161, 0.35);
+  color: #90CAF9;
   padding: 0.15rem 0.45rem;
   border-radius: 0.35rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.84em;
-  border: 1px solid rgba(28, 130, 173, 0.4);
+  border: 1px solid rgba(33, 150, 243, 0.4);
 }
 
 .prose pre {
-  background: #060217;
-  border: 1px solid rgba(28, 130, 173, 0.3);
+  background: #050B16;
+  border: 1px solid rgba(33, 150, 243, 0.25);
   padding: 1.15rem 1.3rem;
   border-radius: 0.9rem;
   overflow-x: auto;
@@ -109,7 +109,7 @@
 .prose pre code {
   background: transparent;
   padding: 0;
-  color: #E2E8F0;
+  color: #E3F2FD;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
 }
@@ -121,19 +121,19 @@
   font-size: 0.85rem;
 }
 .prose th {
-  background: rgba(0, 51, 124, 0.4);
+  background: rgba(13, 71, 161, 0.4);
   color: #FFFFFF;
   font-weight: 600;
   padding: 0.5rem 0.75rem;
-  border: 1px solid rgba(28, 130, 173, 0.35);
+  border: 1px solid rgba(33, 150, 243, 0.35);
   text-align: left;
 }
 .prose td {
   padding: 0.45rem 0.75rem;
-  border: 1px solid rgba(28, 130, 173, 0.2);
-  color: #E2E8F0;
+  border: 1px solid rgba(144, 202, 249, 0.2);
+  color: #D6E4F0;
 }
-.prose tr:nth-child(even) td { background: rgba(19, 0, 90, 0.25); }
+.prose tr:nth-child(even) td { background: rgba(13, 71, 161, 0.15); }
 
 /* ───────────────────────────────────────── */
 /*  ANIMATIONS                               */

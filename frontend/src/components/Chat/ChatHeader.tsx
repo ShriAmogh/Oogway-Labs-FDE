@@ -31,21 +31,21 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   return (
     <header className="
       h-14 flex-shrink-0 z-20
-      border-b border-[#1C82AD]/20
-      bg-[#0B0424]/90 backdrop-blur-xl
+      border-b border-[#2196F3]/20
+      bg-[#091322]/90 backdrop-blur-xl
       px-4 flex items-center justify-between
     ">
       {/* Left: Title + model badge */}
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
-          className="md:hidden p-1.5 rounded-lg text-[#A0AEC0] hover:text-white hover:bg-[#100732] transition-colors"
+          className="md:hidden p-1.5 rounded-lg text-[#90CAF9] hover:text-white hover:bg-[#0E1D35] transition-colors"
         >
           <Menu className="w-4 h-4" />
         </button>
 
         <div className="flex items-center gap-2.5">
-          <h2 className="font-semibold text-sm text-white truncate max-w-[160px] sm:max-w-sm tracking-tight">
+          <h2 className="font-semibold text-sm text-[#E3F2FD] truncate max-w-[160px] sm:max-w-sm tracking-tight">
             {sessionTitle || 'New Conversation'}
           </h2>
 
@@ -55,11 +55,11 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold
             border transition-colors
             ${isGemini
-              ? 'bg-[#1C82AD]/20 text-[#44E5AB] border-[#1C82AD]/40'
-              : 'bg-[#00337C]/40 text-[#03C988] border-[#03C988]/40'
+              ? 'bg-[#2196F3]/20 text-[#E3F2FD] border-[#2196F3]/40'
+              : 'bg-[#0D47A1]/40 text-[#90CAF9] border-[#90CAF9]/40'
             }
           `}>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#03C988] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2196F3] animate-pulse" />
             {modelName || (isGemini ? 'Google Gemini' : 'Local Ollama')}
           </span>
         </div>
@@ -75,20 +75,20 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             flex items-center gap-1.5 py-1.5 px-3 rounded-xl text-[12px] font-semibold
             border transition-all duration-150
             ${showSourcesDrawer
-              ? 'bg-[#1C82AD]/25 border-[#1C82AD]/60 text-white shadow-sm'
-              : 'bg-[#100732] hover:bg-[#160B44] text-[#CBD5E1] hover:text-white border-[#1C82AD]/20'
+              ? 'bg-[#2196F3]/25 border-[#2196F3]/60 text-white shadow-sm'
+              : 'bg-[#0E1D35] hover:bg-[#13284A] text-[#90CAF9] hover:text-white border-[#2196F3]/20'
             }
           `}
           title="View retrieved transcript sources"
         >
-          <Layers className={`w-3.5 h-3.5 ${showSourcesDrawer ? 'text-[#03C988]' : 'text-[#1C82AD]'}`} />
+          <Layers className={`w-3.5 h-3.5 ${showSourcesDrawer ? 'text-[#2196F3]' : 'text-[#90CAF9]'}`} />
           <span className="hidden sm:inline">Sources</span>
           {sourcesCount > 0 && (
             <span className={`
               px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold border
               ${showSourcesDrawer
-                ? 'bg-[#03C988] text-[#07021C] border-[#03C988]'
-                : 'bg-[#08031D] text-[#CBD5E1] border-[#1C82AD]/30'
+                ? 'bg-[#2196F3] text-white border-[#2196F3]'
+                : 'bg-[#060D1A] text-[#90CAF9] border-[#2196F3]/30'
               }
             `}>
               {sourcesCount}
@@ -104,20 +104,20 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             flex items-center gap-1.5 py-1.5 px-3 rounded-xl text-[12px] font-semibold
             border transition-all duration-150
             ${showArtifactViewer
-              ? 'bg-[#03C988]/20 border-[#03C988]/60 text-[#03C988] shadow-sm shadow-[#03C988]/10'
-              : 'bg-[#100732] hover:bg-[#160B44] text-[#CBD5E1] hover:text-white border-[#1C82AD]/20'
+              ? 'bg-[#2196F3]/20 border-[#2196F3]/60 text-[#E3F2FD] shadow-sm shadow-[#2196F3]/15'
+              : 'bg-[#0E1D35] hover:bg-[#13284A] text-[#90CAF9] hover:text-white border-[#2196F3]/20'
             }
           `}
           title="Toggle artifact viewer"
         >
-          <LayoutTemplate className={`w-3.5 h-3.5 ${showArtifactViewer ? 'text-[#03C988]' : 'text-[#1C82AD]'}`} />
+          <LayoutTemplate className={`w-3.5 h-3.5 ${showArtifactViewer ? 'text-[#2196F3]' : 'text-[#90CAF9]'}`} />
           <span className="hidden sm:inline">Artifacts</span>
           {artifactsCount > 0 && (
             <span className={`
               px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold border
               ${showArtifactViewer
-                ? 'bg-[#03C988] text-[#07021C] border-[#03C988]'
-                : 'bg-[#08031D] text-[#CBD5E1] border-[#1C82AD]/30'
+                ? 'bg-[#2196F3] text-white border-[#2196F3]'
+                : 'bg-[#060D1A] text-[#90CAF9] border-[#2196F3]/30'
               }
             `}>
               {artifactsCount}

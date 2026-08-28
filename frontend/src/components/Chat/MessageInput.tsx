@@ -51,8 +51,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     <div className="
       flex-shrink-0 z-10
       px-4 sm:px-6 pt-3 pb-4
-      bg-gradient-to-t from-[#08031D] via-[#08031D]/95 to-transparent
-      border-t border-[#1C82AD]/20
+      bg-gradient-to-t from-[#070F1E] via-[#070F1E]/95 to-transparent
+      border-t border-[#2196F3]/20
     ">
       <div className="max-w-4xl mx-auto space-y-2.5">
 
@@ -61,8 +61,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           <div className="
             flex items-center justify-between
             px-3.5 py-2.5 rounded-xl
-            bg-[#100732] border border-[#03C988]/40
-            shadow-lg ring-1 ring-[#03C988]/20
+            bg-[#0E1D35] border border-[#F97316]/50
+            shadow-lg ring-1 ring-[#F97316]/25
             animate-fade-up
           ">
             <button
@@ -70,27 +70,27 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                 setInput('/ship30for30 ');
                 textareaRef.current?.focus();
               }}
-              className="flex items-center gap-2.5 text-[#03C988] hover:text-white font-medium text-xs"
+              className="flex items-center gap-2.5 text-[#F97316] hover:text-white font-medium text-xs"
             >
-              <PenTool className="w-3.5 h-3.5 text-[#03C988]" />
-              <code className="font-mono bg-[#03C988]/20 px-2 py-0.5 rounded border border-[#03C988]/40 text-white text-[11px]">
+              <PenTool className="w-3.5 h-3.5 text-[#F97316]" />
+              <code className="font-mono bg-[#F97316]/20 px-2 py-0.5 rounded border border-[#F97316]/40 text-[#E3F2FD] text-[11px]">
                 /ship30for30 &lt;topic&gt;
               </code>
-              <span className="text-[#A0AEC0] text-[11px]">— Generate a Ship 30 Atomic Essay</span>
+              <span className="text-[#90CAF9]/80 text-[11px]">— Generate a Ship 30 Atomic Essay</span>
             </button>
-            <span className="text-[10px] text-[#A0AEC0] font-mono">Tab or Click</span>
+            <span className="text-[10px] text-[#90CAF9]/70 font-mono">Tab or Click</span>
           </div>
         )}
 
         {/* Quick-prompt chips */}
         {!showSlashHint && (
           <div className="hidden sm:flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar">
-            <span className="flex items-center gap-1 text-[10.5px] font-bold text-[#A0AEC0] flex-shrink-0 mr-1">
-              <Zap className="w-3 h-3 text-[#03C988]" />
+            <span className="flex items-center gap-1 text-[10.5px] font-bold text-[#90CAF9]/80 flex-shrink-0 mr-1">
+              <Zap className="w-3 h-3 text-[#2196F3]" />
               Prompts:
             </span>
 
-            {/* /ship30for30 pill — emerald accent */}
+            {/* /ship30for30 pill — vibrant orange */}
             <button
               id="ship30-quick-btn"
               onClick={() => {
@@ -100,12 +100,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               disabled={isStreaming}
               className="
                 flex items-center gap-1.5 px-2.5 py-1 rounded-lg flex-shrink-0
-                bg-[#03C988]/15 hover:bg-[#03C988]/25 border border-[#03C988]/40
-                text-[#03C988] hover:text-white
+                bg-[#F97316]/20 hover:bg-[#F97316]/30 border border-[#F97316]/60
+                text-[#F97316] hover:text-white
                 text-[11px] font-bold transition-all disabled:opacity-40
+                shadow-xs shadow-[#F97316]/10
               "
             >
-              <PenTool className="w-3 h-3" />
+              <PenTool className="w-3 h-3 text-[#F97316]" />
               /ship30for30 Founder Mode
             </button>
 
@@ -117,8 +118,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                 disabled={isStreaming}
                 className="
                   px-2.5 py-1 rounded-lg flex-shrink-0 whitespace-nowrap
-                  bg-[#100732] hover:bg-[#160B44] border border-[#1C82AD]/20 hover:border-[#1C82AD]/40
-                  text-[#CBD5E1] hover:text-white
+                  bg-[#0E1D35] hover:bg-[#13284A] border border-[#2196F3]/20 hover:border-[#2196F3]/40
+                  text-[#90CAF9] hover:text-white
                   text-[11px] font-medium transition-all disabled:opacity-40
                 "
               >
@@ -136,14 +137,14 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             rounded-2xl p-3
             border transition-all duration-200
             ${isSlash30
-              ? 'bg-[#100732] border-[#03C988]/60 ring-2 ring-[#03C988]/20 shadow-lg shadow-[#03C988]/10'
-              : 'bg-[#0E0630] border-[#1C82AD]/30 focus-within:border-[#03C988] focus-within:ring-2 focus-within:ring-[#03C988]/20'
+              ? 'bg-[#0E1D35] border-[#F97316]/80 ring-2 ring-[#F97316]/25 shadow-lg shadow-[#F97316]/20'
+              : 'bg-[#0D1B33] border-[#2196F3]/30 focus-within:border-[#2196F3] focus-within:ring-2 focus-within:ring-[#2196F3]/20'
             }
           `}
         >
           {isSlash30 && (
             <div className="flex-shrink-0 self-center pl-1">
-              <PenTool className="w-4 h-4 text-[#03C988]" />
+              <PenTool className="w-4 h-4 text-[#F97316]" />
             </div>
           )}
 
@@ -161,11 +162,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             }
             disabled={isStreaming}
             className={`
-              w-full bg-transparent text-white text-sm focus:outline-none resize-none
+              w-full bg-transparent text-[#E3F2FD] text-sm focus:outline-none resize-none
               px-2 py-1 max-h-44 leading-relaxed
               ${isSlash30
-                ? 'placeholder-[#03C988]/60'
-                : 'placeholder-[#A0AEC0]/60'
+                ? 'placeholder-[#F97316]/80'
+                : 'placeholder-[#90CAF9]/60'
               }
             `}
           />
@@ -193,8 +194,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   w-8 h-8 rounded-xl flex items-center justify-center
                   shadow-md transition-all active:scale-95
                   ${input.trim()
-                    ? 'bg-[#03C988] hover:bg-[#02a972] text-[#07021C] font-bold shadow-[#03C988]/30'
-                    : 'bg-[#100732] text-[#A0AEC0]/40 cursor-not-allowed border border-[#1C82AD]/15'
+                    ? isSlash30
+                      ? 'bg-[#F97316] hover:bg-[#EA580C] text-white font-bold shadow-[#F97316]/30'
+                      : 'bg-[#2196F3] hover:bg-[#1E88E5] text-white font-bold shadow-[#2196F3]/30'
+                    : 'bg-[#0E1D35] text-[#90CAF9]/40 cursor-not-allowed border border-[#2196F3]/15'
                   }
                 `}
               >
@@ -205,12 +208,12 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         </form>
 
         {/* Footer hint */}
-        <div className="flex items-center justify-between text-[10.5px] text-[#A0AEC0]/70 px-1">
+        <div className="flex items-center justify-between text-[10.5px] text-[#90CAF9]/70 px-1">
           <span>Grounded in Lenny's Podcast transcript archive.</span>
           <span className="hidden sm:inline">
-            <kbd className="font-mono bg-[#100732] px-1.5 py-0.5 rounded text-white text-[10px] border border-[#1C82AD]/20">Enter</kbd>
+            <kbd className="font-mono bg-[#0E1D35] px-1.5 py-0.5 rounded text-[#E3F2FD] text-[10px] border border-[#2196F3]/20">Enter</kbd>
             {' '}to send,{' '}
-            <kbd className="font-mono bg-[#100732] px-1.5 py-0.5 rounded text-white text-[10px] border border-[#1C82AD]/20">Shift+Enter</kbd>
+            <kbd className="font-mono bg-[#0E1D35] px-1.5 py-0.5 rounded text-[#E3F2FD] text-[10px] border border-[#2196F3]/20">Shift+Enter</kbd>
             {' '}for newline
           </span>
         </div>
