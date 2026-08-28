@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────────────────────────────────── */
+/*  BASE                                     */
+/* ───────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { font-family: 'Inter', -apple-system, sans-serif; }
+  body {
+    background: #07090F;
+    color: #F1F5F9;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+}
+
+/* ───────────────────────────────────────── */
+/*  SCROLLBARS                               */
+/* ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.45); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.75); }
+
+/* ───────────────────────────────────────── */
+/*  PROSE (markdown)                         */
+/* ───────────────────────────────────────── */
+.prose {
+  color: #CBD5E1;
+  max-width: none;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+.prose h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #F8FAFC;
+  letter-spacing: -0.03em;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+.prose h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #F1F5F9;
+  letter-spacing: -0.02em;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgba(124,58,237,0.25);
+}
+.prose h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #A78BFA;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+}
+.prose p { margin: 0.6em 0; }
+.prose strong { color: #F8FAFC; font-weight: 600; }
+.prose em { color: #C4B5FD; font-style: italic; }
+.prose ul, .prose ol { padding-left: 1.3em; margin: 0.5em 0; }
+.prose li { margin: 0.3em 0; }
+.prose hr { border-color: rgba(124,58,237,0.2); margin: 1.5em 0; }
+
+.prose blockquote {
+  border-left: 3px solid #7C3AED;
+  background: rgba(124,58,237,0.07);
+  padding: 0.75rem 1.1rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  color: #A78BFA;
+  font-style: normal;
+  margin: 1rem 0;
+}
+
+.prose code:not(pre code) {
+  background: rgba(124,58,237,0.14);
+  color: #A78BFA;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82em;
+  border: 1px solid rgba(124,58,237,0.25);
+}
+
+.prose pre {
+  background: #050710;
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 1.15rem 1.3rem;
+  border-radius: 0.9rem;
+  overflow-x: auto;
+  margin: 0.9rem 0;
+  box-shadow: 0 8px 32px -4px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: #E2E8F0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.83rem;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
+.prose th {
+  background: rgba(124,58,237,0.15);
+  color: #DDD6FE;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(124,58,237,0.2);
+  text-align: left;
+}
+.prose td {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  color: #CBD5E1;
+}
+.prose tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+/* ───────────────────────────────────────── */
+/*  GLOBAL ANIMATIONS                        */
+/* ───────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.3s ease forwards; }
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* ───────────────────────────────────────── */
+/*  UTILITIES                                */
+/* ───────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

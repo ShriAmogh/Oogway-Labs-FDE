@@ -1,0 +1,246 @@
+import React, { useState } from 'react';
+import { Plus, MessageSquare, Trash2, Database, Cpu, Sparkles, CheckCircle2, Zap } from 'lucide-react';
+import { Session, HealthStatus, IngestionStatus } from '../../types';
+
+interface SidebarProps {
+  sessions: Session[];
+  currentSessionId: string | null;
+  onSelectSession: (id: string) => void;
+  onNewChat: () => void;
+  onDeleteSession: (id: string) => void;
+  provider: 'gemini' | 'ollama';
+  onProviderChange: (provider: 'gemini' | 'ollama') => void;
+  health: HealthStatus | null;
+  ingestion: IngestionStatus | null;
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({
+  sessions,
+  currentSessionId,
+  onSelectSession,
+  onNewChat,
+  onDeleteSession,
+  provider,
+  onProviderChange,
+  health,
+  ingestion,
+  isOpen
+}) => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  const geminiOnline  = health?.gemini_configured;
+  const ollamaOnline  = health?.ollama_connected;
+  const activeOnline  = provider === 'gemini' ? geminiOnline : ollamaOnline;
+
+  const geminiLabel = health?.gemini_model
+    ? health.gemini_model.replace('gemini-', '').replace('-lite', ' lite')
+    : '3.1-flash';
+  const ollamaLabel = health?.ollama_model
+    ? health.ollama_model.split(':')[0]
+    : 'qwen2.5';
+
+  return (
+    <aside
+      className={`
+        w-72 flex-shrink-0 flex flex-col h-full z-30 transition-transform duration-300
+        bg-[#08091200] md:translate-x-0
+        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        border-r border-white/[0.06]
+        bg-gradient-to-b from-[#0A0C18] via-[#090B14] to-[#07090F]
+      `}
+    >
+      {/* ── Brand Header ─────────────────────── */}
+      <div className="px-5 pt-5 pb-4">
+        {/* Logo mark */}
+        <div className="flex items-center gap-3 mb-5">
+          <div className="relative">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-violet-700 p-1.5 flex items-center justify-center shadow-lg shadow-violet-500/30 ring-1 ring-violet-400/20">
+              <img src="/logo.png" alt="Lenny Growth Logo" className="w-full h-full object-contain filter drop-shadow" />
+            </div>
+            {/* Glow behind logo */}
+            <div className="absolute inset-0 rounded-xl bg-violet-500 blur-md opacity-30 -z-10" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="font-display font-800 text-sm text-white tracking-tight leading-none">
+                Lenny Growth
+              </h1>
+              <span className="text-[9px] font-mono font-700 px-1.5 py-0.5 bg-violet-500/15 text-violet-300 rounded border border-violet-500/30 uppercase tracking-widest">
+                PRO
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-400 mt-0.5 font-medium">AI Product & Growth Advisor</p>
+          </div>
+        </div>
+
+        {/* New Conversation CTA */}
+        <button
+          onClick={onNewChat}
+          className="
+            w-full group relative flex items-center justify-between
+            py-2.5 px-4 rounded-xl font-semibold text-[12px]
+            bg-gradient-to-r from-violet-600 to-violet-700
+            hover:from-violet-500 hover:to-violet-600
+            text-white transition-all duration-150
+            shadow-lg shadow-violet-600/25
+            border border-violet-400/20
+            active:scale-[0.98]
+          "
+        >
+          <div className="flex items-center gap-2">
+            <Plus className="w-3.5 h-3.5" />
+            <span>New Conversation</span>
+          </div>
+          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[9.5px] bg-black/25 rounded text-violet-200 font-mono tracking-wide">⌘N</kbd>
+        </button>
+      </div>
+
+      {/* ── Model Engine Selector ─────────────── */}
+      <div className="px-4 pb-3">
+        <div className="bg-[#0D1020] rounded-xl border border-white/[0.06] p-3">
+          {/* Header row */}
+          <div className="flex items-center justify-between mb-2.5">
+            <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+              <Cpu className="w-3 h-3 text-violet-400" />
+              Model Engine
+            </span>
+            {/* Status dot */}
+            <span
+              className={`flex items-center gap-1 text-[10px] font-mono font-medium ${
+                activeOnline ? 'text-emerald-400' : 'text-amber-400'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${activeOnline ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}`} />
+              {activeOnline ? 'Online' : 'Offline'}
+            </span>
+          </div>
+
+          {/* Segmented Controller */}
+          <div className="grid grid-cols-2 gap-1 bg-[#060810] p-1 rounded-lg border border-white/[0.04]">
+            <button
+              onClick={() => onProviderChange('gemini')}
+              className={`py-2 px-2 rounded-md text-[11px] font-semibold transition-all truncate text-center ${
+                provider === 'gemini'
+                  ? 'bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-md shadow-violet-600/30 border border-violet-400/20'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
+              }`}
+            >
+              {geminiLabel}
+            </button>
+            <button
+              onClick={() => onProviderChange('ollama')}
+              className={`py-2 px-2 rounded-md text-[11px] font-semibold transition-all truncate text-center ${
+                provider === 'ollama'
+                  ? 'bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-md shadow-violet-600/30 border border-violet-400/20'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
+              }`}
+            >
+              {ollamaLabel}
+            </button>
+          </div>
+
+          {/* Model full name */}
+          <div className="mt-2 px-1 text-[10px] text-slate-500 flex items-center justify-between">
+            <span className="truncate">
+              {provider === 'gemini'
+                ? (health?.gemini_model || 'Google GenAI')
+                : (health?.ollama_model ? `Local · ${health.ollama_model}` : 'Local Ollama')}
+            </span>
+            {provider === 'ollama' && !ollamaOnline && (
+              <span className="text-amber-400 font-medium">Auto Failover</span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Session Thread List ───────────────── */}
+      <div className="flex-1 overflow-y-auto px-3 min-h-0">
+        {/* Section label */}
+        <div className="flex items-center justify-between px-2 py-2 mb-1">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Threads</span>
+          <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 bg-white/[0.05] text-slate-400 rounded border border-white/[0.06]">
+            {sessions.length}
+          </span>
+        </div>
+
+        {sessions.length === 0 ? (
+          <div className="text-center py-10 px-4">
+            <MessageSquare className="w-8 h-8 text-slate-600 mx-auto mb-3" />
+            <p className="text-xs font-medium text-slate-500">No conversations yet</p>
+            <p className="text-[11px] text-slate-600 mt-1">Ask a question or use /ship30for30 to begin.</p>
+          </div>
+        ) : (
+          <div className="space-y-0.5">
+            {sessions.map((s) => {
+              const isActive = currentSessionId === s.id;
+              return (
+                <div
+                  key={s.id}
+                  onClick={() => onSelectSession(s.id)}
+                  onMouseEnter={() => setHoveredId(s.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className={`
+                    group relative flex items-center justify-between
+                    p-2.5 rounded-xl cursor-pointer transition-all text-[12px]
+                    ${isActive
+                      ? 'bg-violet-500/12 border border-violet-500/30 text-violet-200'
+                      : 'border border-transparent text-slate-400 hover:bg-white/[0.03] hover:text-slate-200 hover:border-white/[0.05]'
+                    }
+                  `}
+                >
+                  {/* Active left accent bar */}
+                  {isActive && (
+                    <div className="absolute left-0 top-1/4 bottom-1/4 w-0.5 bg-violet-400 rounded-r-full" />
+                  )}
+
+                  <div className="flex items-center gap-2.5 truncate pr-1">
+                    <MessageSquare className={`w-3.5 h-3.5 flex-shrink-0 ${
+                      isActive ? 'text-violet-400' : 'text-slate-600 group-hover:text-slate-400'
+                    }`} />
+                    <span className="truncate font-medium">{s.title || 'Untitled Conversation'}</span>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDeleteSession(s.id);
+                    }}
+                    className="opacity-0 group-hover:opacity-100 p-1 hover:text-rose-400 rounded-lg transition-all text-slate-500"
+                    title="Delete thread"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* ── Knowledge Base Footer ─────────────── */}
+      <div className="p-4 border-t border-white/[0.06] bg-[#060810]/80">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+            <Database className="w-3.5 h-3.5 text-emerald-400" />
+            Lenny Transcripts
+          </span>
+          <span className="font-mono font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 text-[10px]">
+            {ingestion?.total_chunks ? ingestion.total_chunks.toLocaleString() : '14,282'} chunks
+          </span>
+        </div>
+        <div className="flex items-center justify-between text-[10px] text-slate-500">
+          <span className="flex items-center gap-1">
+            <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />
+            RRF Fusion + Reranker
+          </span>
+          <span className="flex items-center gap-1 text-emerald-400 font-medium">
+            <Zap className="w-2.5 h-2.5" />
+            Active
+          </span>
+        </div>
+      </div>
+    </aside>
+  );
+};
