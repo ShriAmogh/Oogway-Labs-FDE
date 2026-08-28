@@ -1,0 +1,45 @@
+# Environment variables & secrets
+.env
+*.env
+*.env.local
+*.env.*
+!*.env.example
+
+# Assignment instructions
+Forward_Deployed_Engineer_Take_Home_Assignment.md
+Forward_Deployed_Engineer_Take_Home_Assignment.docx
+*.docx
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Scratch & diagnostic test scripts
+scripts/test_*.py
+scripts/debug_*.py
+scripts/diagnose_*.py
+scripts/inspect_*.py
+scripts/check_*.py
+
+# Node & Frontend
+node_modules/
+dist/
+build/
+.npm
+.eslintcache
+
+# IDE & OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker volume data
+postgres_data/
