@@ -1,4 +1,4 @@
-# 🚀 The Lenny Growth Assistant
+# The Lenny Growth Assistant
 > **Full-Stack AI Conversational Platform & Artifact Workspace Grounded in Lenny’s Podcast Transcripts**
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -7,41 +7,37 @@
 [![Ollama](https://img.shields.io/badge/Local_Ollama-llama3.2-black?logo=ollama&logoColor=white)](https://ollama.com/)
 [![React](https://img.shields.io/badge/React_18-TypeScript-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 
----
-
-## 🌟 Overview
+--- ## Overview
 
 **The Lenny Growth Assistant** is a full-stack, production-ready AI conversational application built for product managers, founders, and growth leaders. It ingests transcripts from [Lenny's Podcast](https://github.com/ChatPRD/lennys-podcast-transcripts), answers tactical product/growth questions strictly grounded in those transcripts with interactive citation badges, generates structured **Ship 30 for 30** atomic essays, and renders interactive **sandboxed artifacts** (HTML/CSS tools, calculators, frameworks) side-by-side with chat.
 
 ```
-                    ┌──────────────────────────────────────────────┐
-                    │            Next.js / React Frontend          │
-                    │                                              │
-                    │   Chat Stream  │  Source Drawer  │  Artifact │
-                    │   (Markdown)   │  (Citations)    │  Viewer   │
-                    └──────────────────────┬───────────────────────┘
-                                           │ SSE / REST API
-                                           ▼
-                    ┌──────────────────────────────────────────────┐
-                    │               FastAPI Backend                │
-                    │                                              │
-                    │  ┌──────────────────┐  ┌──────────────────┐  │
-                    │  │   Agent Layer    │  │   RAG Pipeline   │  │
-                    │  │ (Gemini / Ollama)│  │ (RRF + Rerank)   │  │
-                    │  └────────┬─────────┘  └────────┬─────────┘  │
-                    │           │                     │            │
-                    │  ┌────────▼─────────┐  ┌────────▼─────────┐  │
-                    │  │ Skills & Tools   │  │ PostgreSQL +     │  │
-                    │  │ • RAG Search     │  │ pgvector (Docker)│  │
-                    │  │ • Ship 30 for 30 │  │ (Sessions, Msgs, │  │
-                    │  │ • Artifact Gen   │  │  Artifacts, VDB) │  │
-                    │  └──────────────────┘  └──────────────────┘  │
-                    └──────────────────────────────────────────────┘
+                    
+                                Next.js / React Frontend          
+                                                                  
+                       Chat Stream    Source Drawer    Artifact 
+                       (Markdown)     (Citations)      Viewer   
+                    
+                                            SSE / REST API
+                                           
+                    
+                                   FastAPI Backend                
+                                                                  
+                          
+                         Agent Layer         RAG Pipeline     
+                       (Gemini / Ollama)   (RRF + Rerank)     
+                          
+                                                                
+                          
+                       Skills & Tools      PostgreSQL +       
+                       • RAG Search        pgvector (Docker)  
+                       • Ship 30 for 30    (Sessions, Msgs,   
+                       • Artifact Gen       Artifacts, VDB)   
+                          
+                    
 ```
 
----
-
-## 🎯 Key Capabilities
+--- ## Key Capabilities
 
 1. **Hybrid RAG with RRF & Reranking**:
    - **Dense Semantic Search**: Cosine similarity via `pgvector` embeddings (`all-MiniLM-L6-v2`).
@@ -63,9 +59,7 @@
 6. **Full Persistence in PostgreSQL**:
    - Stores sessions, message threads, latency metrics, citations, and versioned artifacts.
 
----
-
-## ⚡ Quickstart
+--- ## Quickstart
 
 ### Option 1: One-Command Startup with Docker Compose (Recommended)
 
@@ -83,13 +77,11 @@ cp .env.example .env
 docker compose up --build
 ```
 
-- 🌐 **Web Application**: [http://localhost:3000](http://localhost:3000)
-- 📖 **API Docs & Swagger**: [http://localhost:8000/docs](http://localhost:8000/docs)
-- 🩺 **Health Endpoint**: [http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health)
+- **Web Application**: [http://localhost:3000](http://localhost:3000)
+- **API Docs & Swagger**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Health Endpoint**: [http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health)
 
----
-
-### Option 2: Local Development Mode (Native Python + Node)
+--- ### Option 2: Local Development Mode (Native Python + Node)
 
 #### Prerequisites
 - Python 3.10+
@@ -123,9 +115,7 @@ npm install
 npm run dev
 ```
 
----
-
-## ⚙️ Environment Configuration (`.env`)
+--- ## Environment Configuration (`.env`)
 
 | Variable | Default | Description |
 | :--- | :--- | :--- |
@@ -137,9 +127,7 @@ npm run dev
 | `DEFAULT_PROVIDER` | `gemini` | Default engine (`gemini` or `ollama`) |
 | `EMBEDDING_PROVIDER` | `local` | `local` (SentenceTransformers) or `gemini` |
 
----
-
-## 🧪 Running Automated Tests
+--- ## Running Automated Tests
 
 Run backend unit and integration tests covering chunking with overlap, RRF mathematical fusion, security sanitization, and API endpoints:
 
@@ -148,53 +136,47 @@ cd backend
 pytest -v tests/
 ```
 
----
-
-## 📂 Project Structure
+--- ## Project Structure
 
 ```
-├── backend/
-│   ├── app/
-│   │   ├── api/v1/          # Chat (SSE), Sessions, Artifacts, Ingestion, Health
-│   │   ├── core/            # Config, Async DB with pgvector, JSON Logger, Security
-│   │   ├── models/          # SQLAlchemy DB models & Pydantic schemas
-│   │   ├── rag/             # Speaker-aware Chunker, Embedder, Hybrid Retriever (RRF)
-│   │   ├── agents/          # Gemini SDK Agent, Local Ollama Agent, Router & Tools
-│   │   └── main.py          # FastAPI app entrypoint with lifespan DB init
-│   ├── tests/               # Pytest test suite (RRF, Chunker, Security)
-│   ├── Dockerfile           # Backend Docker container
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── components/      # Sidebar, Chat, CitationChips, ArtifactViewer, MessageInput
-│   │   ├── services/api.ts  # Typed API client with resilient SSE parser
-│   │   ├── App.tsx          # Resizable split-pane layout & state coordinator
-│   │   └── index.css        # Tailwind & Glassmorphism design tokens
-│   ├── Dockerfile           # Frontend multi-stage Nginx build
-│   └── package.json
-├── docs/
-│   ├── PRD.md               # Product Requirements Document & Discovery Brief
-│   ├── design.md            # UI/UX Specifications & Iframe Sandbox Security Model
-│   └── architecture.md      # Technical Architecture, DB ERD & RRF Pipeline Flow
-├── scripts/
-│   ├── ingest_transcripts.py # CLI ingestion script for pgvector
-│   └── run_local.sh         # One-command local startup script
-├── docker-compose.yml       # PostgreSQL (pgvector) + FastAPI + React orchestration
-└── .env.example             # Documented environment template
+ backend/
+    app/
+       api/v1/          # Chat (SSE), Sessions, Artifacts, Ingestion, Health
+       core/            # Config, Async DB with pgvector, JSON Logger, Security
+       models/          # SQLAlchemy DB models & Pydantic schemas
+       rag/             # Speaker-aware Chunker, Embedder, Hybrid Retriever (RRF)
+       agents/          # Gemini SDK Agent, Local Ollama Agent, Router & Tools
+       main.py          # FastAPI app entrypoint with lifespan DB init
+    tests/               # Pytest test suite (RRF, Chunker, Security)
+    Dockerfile           # Backend Docker container
+    requirements.txt
+ frontend/
+    src/
+       components/      # Sidebar, Chat, CitationChips, ArtifactViewer, MessageInput
+       services/api.ts  # Typed API client with resilient SSE parser
+       App.tsx          # Resizable split-pane layout & state coordinator
+       index.css        # Tailwind & Glassmorphism design tokens
+    Dockerfile           # Frontend multi-stage Nginx build
+    package.json
+ docs/
+    PRD.md               # Product Requirements Document & Discovery Brief
+    design.md            # UI/UX Specifications & Iframe Sandbox Security Model
+    architecture.md      # Technical Architecture, DB ERD & RRF Pipeline Flow
+ scripts/
+    ingest_transcripts.py # CLI ingestion script for pgvector
+    run_local.sh         # One-command local startup script
+ docker-compose.yml       # PostgreSQL (pgvector) + FastAPI + React orchestration
+ .env.example             # Documented environment template
 ```
 
----
-
-## 🛡️ Security & Sandbox Isolation
+--- ## Security & Sandbox Isolation
 
 AI-generated HTML artifacts execute in an isolated sandbox:
 1. **Isolated Iframe**: `sandbox="allow-scripts"` (strictly omits `allow-same-origin` to prevent access to parent cookies, tokens, and DOM).
 2. **Content Security Policy**: `default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none';` to block unauthorized data exfiltration.
 3. **Server-Side Sanitization**: Python `bleach` whitelist sanitizes dangerous tags before database persistence.
 
----
-
-## 🤝 Evaluator Verification Checklist
+--- ## Evaluator Verification Checklist
 
 - [x] **Grounded Answers**: Ask *"What did Brian Chesky say about eliminating traditional PM at Airbnb?"* $\rightarrow$ Verified response citing Brian Chesky's episode with interactive source pills.
 - [x] **Out-of-Domain Safety**: Ask *"What is the recipe for baking sourdough bread?"* $\rightarrow$ Verified polite refusal acknowledging absence in Lenny's podcast.

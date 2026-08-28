@@ -71,7 +71,6 @@ export const App: React.FC = () => {
     }
   };
 
-  // Load initial data on mount and poll health / ingestion status
   useEffect(() => {
     loadSessions();
     loadSystemHealth();
@@ -79,7 +78,6 @@ export const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Handle browser Back / Forward buttons for chat sessions
   useEffect(() => {
     const handlePopState = () => {
       const urlSession = getSessionIdFromUrl();
@@ -172,7 +170,6 @@ export const App: React.FC = () => {
   const handleSendMessage = async (text: string) => {
     if (!text.trim() || isStreaming) return;
 
-    // Create temporary user message
     const tempUserMsg: Message = {
       id: `user-${Date.now()}`,
       session_id: currentSessionId || '',
@@ -185,7 +182,6 @@ export const App: React.FC = () => {
       ? (health?.gemini_model || 'gemini-3.1-flash-lite')
       : (health?.ollama_model || 'qwen2.5:1.5b');
 
-    // Create temporary assistant placeholder
     const tempAssistantId = `asst-${Date.now()}`;
     const tempAsstMsg: Message = {
       id: tempAssistantId,
@@ -230,7 +226,7 @@ export const App: React.FC = () => {
       onToken: (token) => {
         accumulatedContent += token;
         setMessages(prev => 
-          prev.map(m => m.id === tempAssistantId ? { ...m, content: accumulatedContent } : m)
+            prev.map(m => m.id === tempAssistantId ? { ...m, content: accumulatedContent } : m)
         );
       },
       onCitation: (citation) => {
@@ -254,7 +250,7 @@ export const App: React.FC = () => {
         setMessages(prev => 
           prev.map(m => m.id === tempAssistantId ? { ...m, isStreaming: false } : m)
         );
-        loadSessions(); // refresh update time
+        loadSessions();
       },
       onError: (err) => {
         setIsStreaming(false);
@@ -282,83 +278,83 @@ export const App: React.FC = () => {
   const currentSession = sessions.find(s => s.id === currentSessionId);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#07090F] text-slate-100 relative">
-      {/* Ambient background orbs */}
-      <div className="fixed top-0 right-0 w-[600px] h-[600px] rounded-full bg-violet-600/[0.08] blur-[80px] pointer-events-none -z-0" />
-      <div className="fixed bottom-0 left-48 w-[400px] h-[400px] rounded-full bg-orange-500/[0.05] blur-[60px] pointer-events-none -z-0" />
+    <div className="flex h-screen w-screen overflow-hidden bg-[#07021C] text-[#F3F4F6] relative">
+      {/* Ambient background orbs in Midnight Cyan and Emerald */}
+      <div className="fixed top-0 right-0 w-[550px] h-[550px] rounded-full bg-[#1C82AD]/[0.10] blur-[90px] pointer-events-none -z-0" />
+      <div className="fixed bottom-0 left-48 w-[400px] h-[400px] rounded-full bg-[#03C988]/[0.08] blur-[70px] pointer-events-none -z-0" />
       <div className="relative z-10 flex w-full h-full">
-      {/* Left Sidebar */}
-      <Sidebar
-        sessions={sessions}
-        currentSessionId={currentSessionId}
-        onSelectSession={selectSession}
-        onNewChat={handleNewChat}
-        onDeleteSession={handleDeleteSession}
-        provider={provider}
-        onProviderChange={setProvider}
-        health={health}
-        ingestion={ingestion}
-        isOpen={isSidebarOpen}
-        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-      />
-
-      {/* Main Chat Center Panel */}
-      <main className="flex-1 flex flex-col min-w-0 h-full relative">
-        <ChatHeader
-          sessionTitle={currentSession?.title || 'New Conversation'}
+        {/* Left Sidebar */}
+        <Sidebar
+          sessions={sessions}
+          currentSessionId={currentSessionId}
+          onSelectSession={selectSession}
+          onNewChat={handleNewChat}
+          onDeleteSession={handleDeleteSession}
           provider={provider}
-          modelName={provider === 'gemini' ? (health?.gemini_model ? health.gemini_model.replace('gemini-', 'Gemini ') : 'Gemini') : (health?.ollama_model ? `Local ${health.ollama_model}` : 'Local Ollama')}
-          showArtifactViewer={showArtifactViewer}
-          onToggleArtifactViewer={() => setShowArtifactViewer(!showArtifactViewer)}
-          showSourcesDrawer={showSourcesDrawer}
-          onToggleSourcesDrawer={() => setShowSourcesDrawer(!showSourcesDrawer)}
-          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-          artifactsCount={artifacts.length}
-          sourcesCount={sessionCitations.length}
+          onProviderChange={setProvider}
+          health={health}
+          ingestion={ingestion}
+          isOpen={isSidebarOpen}
+          onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
         />
 
-        <MessageList
-          messages={messages}
-          isStreaming={isStreaming}
-          thinkingStage={thinkingStage}
-          onOpenArtifact={(art) => {
-            setActiveArtifact(art);
-            setShowArtifactViewer(true);
-          }}
-          onSelectCitation={(citation, index) => {
-            if (index !== undefined) {
-              setActiveCitationIndex(index);
-            }
-            setShowSourcesDrawer(true);
-          }}
-        />
-
-        <MessageInput
-          onSendMessage={handleSendMessage}
-          isStreaming={isStreaming}
-          onStopStreaming={handleStopStreaming}
-        />
-      </main>
-
-      {/* Right Side Artifact Viewer Panel */}
-      {showArtifactViewer && (
-        <aside className="w-full md:w-[480px] lg:w-[560px] h-full flex-shrink-0 z-20 shadow-2xl">
-          <ArtifactViewer
-            artifact={activeArtifact}
-            artifactsList={artifacts}
-            onSelectArtifact={(art) => setActiveArtifact(art)}
-            onClose={() => setShowArtifactViewer(false)}
+        {/* Main Chat Center Panel */}
+        <main className="flex-1 flex flex-col min-w-0 h-full relative bg-[#07021C]">
+          <ChatHeader
+            sessionTitle={currentSession?.title || 'New Conversation'}
+            provider={provider}
+            modelName={provider === 'gemini' ? (health?.gemini_model ? health.gemini_model.replace('gemini-', 'Gemini ') : 'Gemini') : (health?.ollama_model ? `Local ${health.ollama_model}` : 'Local Ollama')}
+            showArtifactViewer={showArtifactViewer}
+            onToggleArtifactViewer={() => setShowArtifactViewer(!showArtifactViewer)}
+            showSourcesDrawer={showSourcesDrawer}
+            onToggleSourcesDrawer={() => setShowSourcesDrawer(!showSourcesDrawer)}
+            onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+            artifactsCount={artifacts.length}
+            sourcesCount={sessionCitations.length}
           />
-        </aside>
-      )}
 
-      {/* Sources & Retrieved Chunks Drawer (Isolated per session) */}
-      <SourceDrawer
-        citations={sessionCitations}
-        isOpen={showSourcesDrawer}
-        onClose={() => setShowSourcesDrawer(false)}
-        activeCitationIndex={activeCitationIndex}
-      />
+          <MessageList
+            messages={messages}
+            isStreaming={isStreaming}
+            thinkingStage={thinkingStage}
+            onOpenArtifact={(art) => {
+              setActiveArtifact(art);
+              setShowArtifactViewer(true);
+            }}
+            onSelectCitation={(citation, index) => {
+              if (index !== undefined) {
+                setActiveCitationIndex(index);
+              }
+              setShowSourcesDrawer(true);
+            }}
+          />
+
+          <MessageInput
+            onSendMessage={handleSendMessage}
+            isStreaming={isStreaming}
+            onStopStreaming={handleStopStreaming}
+          />
+        </main>
+
+        {/* Right Side Artifact Viewer Panel */}
+        {showArtifactViewer && (
+          <aside className="w-full md:w-[480px] lg:w-[560px] h-full flex-shrink-0 z-20 shadow-2xl">
+            <ArtifactViewer
+              artifact={activeArtifact}
+              artifactsList={artifacts}
+              onSelectArtifact={(art) => setActiveArtifact(art)}
+              onClose={() => setShowArtifactViewer(false)}
+            />
+          </aside>
+        )}
+
+        {/* Sources & Retrieved Chunks Drawer */}
+        <SourceDrawer
+          citations={sessionCitations}
+          isOpen={showSourcesDrawer}
+          onClose={() => setShowSourcesDrawer(false)}
+          activeCitationIndex={activeCitationIndex}
+        />
       </div>
     </div>
   );

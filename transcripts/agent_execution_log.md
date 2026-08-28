@@ -1,9 +1,7 @@
 # Coding Agent Trajectory & Execution Log
 ## The Lenny Growth Assistant Deployment
 
----
-
-## 1. Engagement Overview & Milestones
+--- ## 1. Engagement Overview & Milestones
 
 This log documents the autonomous implementation, verification, and problem-solving trajectory of Antigravity AI pair programming during the construction of **The Lenny Growth Assistant**.
 
@@ -16,9 +14,7 @@ This log documents the autonomous implementation, verification, and problem-solv
 6. **In-App Artifact Viewer**: Isolated split-screen sandbox (`sandbox="allow-scripts"`, strict CSP, server-side Bleach sanitization).
 7. **Complete Documentation Suite**: `PRD.md`, `design.md`, `architecture.md`, `README.md`, automated unit tests.
 
----
-
-## 2. Iterations, Challenges & Corrections
+--- ## 2. Iterations, Challenges & Corrections
 
 ### Challenge 1: Document Conversion Tooling
 - **Initial State**: Assignment was provided in `.docx` binary format.
@@ -42,9 +38,7 @@ This log documents the autonomous implementation, verification, and problem-solv
   - Configured `sandbox="allow-scripts"` while strictly omitting `allow-same-origin` and `allow-top-navigation`.
   - Added strict CSP meta tags (`connect-src 'none'; default-src 'none';`) and server-side Bleach sanitization.
 
----
-
-## 3. Verification Summary
+--- ## 3. Verification Summary
 
 | Test Suite / Area | Tested Functionality | Result |
 | :--- | :--- | :--- |

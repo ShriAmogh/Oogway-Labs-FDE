@@ -32,15 +32,15 @@ const InlineCitationBtn: React.FC<{
     }}
     className="
       inline-flex items-center gap-1 mx-0.5 px-2 py-0.5 rounded-md
-      text-[11px] font-mono font-semibold align-baseline
-      bg-cyan-500/12 text-cyan-300 border border-cyan-500/30
-      hover:bg-cyan-500/25 hover:text-cyan-100 hover:border-cyan-400/50
-      transition-all cursor-pointer group
+      text-[11px] font-mono font-bold align-baseline
+      bg-[#00337C]/40 text-[#44E5AB] border border-[#1C82AD]/50
+      hover:bg-[#03C988] hover:text-[#07021C]
+      transition-all cursor-pointer group shadow-xs
     "
     title={`Verified excerpt from ${citation?.guest || 'episode'}`}
   >
     <span>{label}</span>
-    <ExternalLink className="w-2.5 h-2.5 opacity-50 group-hover:opacity-100 transition-opacity" />
+    <ExternalLink className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
   </button>
 );
 
@@ -108,12 +108,12 @@ export const MessageList: React.FC<MessageListProps> = ({
 
     const components = {
       p: ({ children }: any) => (
-        <p className="mb-3 last:mb-0 leading-relaxed">
+        <p className="mb-3 last:mb-0 leading-relaxed text-[#F3F4F6]">
           {processInlineCitations(children, citations)}
         </p>
       ),
       li: ({ children }: any) => (
-        <li className="leading-relaxed">
+        <li className="leading-relaxed text-[#F3F4F6]">
           {processInlineCitations(children, citations)}
         </li>
       ),
@@ -133,82 +133,82 @@ export const MessageList: React.FC<MessageListProps> = ({
         <div className="max-w-xl w-full mx-auto relative">
           {/* Ambient glow behind the hero */}
           <div className="absolute inset-0 -z-10 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 bg-violet-600/12 rounded-full blur-3xl" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 bg-[#1C82AD]/20 rounded-full blur-3xl" />
           </div>
           {/* Hero mark */}
           <div className="relative inline-block mb-6">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 via-violet-600 to-violet-800 p-2.5 flex items-center justify-center shadow-2xl shadow-violet-500/40 ring-1 ring-violet-400/20 mx-auto">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#00337C] via-[#1C82AD] to-[#03C988] p-2.5 flex items-center justify-center shadow-2xl shadow-[#03C988]/30 ring-1 ring-white/20 mx-auto">
               <img src="/logo.png" alt="Lenny Growth Logo" className="w-full h-full object-contain filter drop-shadow" />
             </div>
-            <div className="absolute -inset-3 bg-violet-500 rounded-3xl blur-2xl opacity-20 -z-10" />
+            <div className="absolute -inset-3 bg-[#03C988] rounded-3xl blur-2xl opacity-20 -z-10" />
           </div>
 
           {/* Headline */}
           <h2 className="font-display font-800 text-2xl text-white tracking-tight mb-2">
             The Lenny Growth Assistant
           </h2>
-          <p className="text-sm text-slate-400 leading-relaxed mb-8 max-w-md mx-auto">
+          <p className="text-sm text-[#A0AEC0] leading-relaxed mb-8 max-w-md mx-auto">
             Frameworks, playbooks, and advice strictly grounded in{' '}
-            <span className="text-violet-300 font-semibold">100+ Lenny's Podcast</span> transcripts.
+            <span className="text-[#03C988] font-semibold">100+ Lenny's Podcast</span> transcripts.
             Every claim is cited.
           </p>
 
           {/* Suggestion Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-            {/* Card 1 — violet */}
-            <div className="group p-4 rounded-xl bg-violet-500/05 hover:bg-violet-500/10 border border-violet-500/25 hover:border-violet-500/50 transition-all cursor-default">
+            {/* Card 1 — Emerald */}
+            <div className="group p-4 rounded-xl bg-[#0E0630] hover:bg-[#13093E] border border-[#03C988]/30 hover:border-[#03C988]/60 transition-all cursor-default shadow-sm">
               <div className="flex items-start justify-between mb-2">
-                <span className="text-violet-400 font-semibold text-xs flex items-center gap-1.5">
+                <span className="text-[#03C988] font-bold text-xs flex items-center gap-1.5">
                   <Brain className="w-3.5 h-3.5" />
                   Founder Mode vs Manager
                 </span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-violet-400 transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#A0AEC0] group-hover:text-white transition-colors" />
               </div>
-              <p className="text-slate-400 text-[12px] leading-snug">
+              <p className="text-[#CBD5E1] text-[12px] leading-snug">
                 "How does Brian Chesky think about the 2-release cycle and single roadmap at Airbnb?"
               </p>
             </div>
 
-            {/* Card 2 — pink */}
-            <div className="group p-4 rounded-xl bg-pink-500/05 hover:bg-pink-500/08 border border-pink-500/20 hover:border-pink-500/45 transition-all cursor-default">
+            {/* Card 2 — Cyan */}
+            <div className="group p-4 rounded-xl bg-[#0E0630] hover:bg-[#13093E] border border-[#1C82AD]/30 hover:border-[#1C82AD]/60 transition-all cursor-default shadow-sm">
               <div className="flex items-start justify-between mb-2">
-                <span className="text-pink-400 font-semibold text-xs flex items-center gap-1.5">
+                <span className="text-[#1C82AD] font-bold text-xs flex items-center gap-1.5">
                   <Layers className="w-3.5 h-3.5" />
                   Shreyas Doshi LNO Model
                 </span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-pink-400 transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#A0AEC0] group-hover:text-white transition-colors" />
               </div>
-              <p className="text-slate-400 text-[12px] leading-snug">
+              <p className="text-[#CBD5E1] text-[12px] leading-snug">
                 "How should PMs categorize daily tasks into Leverage, Neutral, and Overhead?"
               </p>
             </div>
 
-            {/* Card 3 — emerald */}
-            <div className="group p-4 rounded-xl bg-emerald-500/05 hover:bg-emerald-500/08 border border-emerald-500/20 hover:border-emerald-500/45 transition-all cursor-default">
+            {/* Card 3 — Deep Sapphire */}
+            <div className="group p-4 rounded-xl bg-[#0E0630] hover:bg-[#13093E] border border-[#00337C]/40 hover:border-[#1C82AD]/60 transition-all cursor-default shadow-sm">
               <div className="flex items-start justify-between mb-2">
-                <span className="text-emerald-400 font-semibold text-xs flex items-center gap-1.5">
-                  <BookOpen className="w-3.5 h-3.5" />
+                <span className="text-[#4FB1DC] font-bold text-xs flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5 text-[#03C988]" />
                   Elena Verna Growth Loops
                 </span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-emerald-400 transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#A0AEC0] group-hover:text-white transition-colors" />
               </div>
-              <p className="text-slate-400 text-[12px] leading-snug">
+              <p className="text-[#CBD5E1] text-[12px] leading-snug">
                 "What makes a B2B product-led growth loop scalable and defensible?"
               </p>
             </div>
 
-            {/* Card 4 — orange/ship30 */}
-            <div className="group p-4 rounded-xl bg-orange-500/05 hover:bg-orange-500/08 border border-orange-500/20 hover:border-orange-500/45 transition-all cursor-default">
+            {/* Card 4 — Ship 30 */}
+            <div className="group p-4 rounded-xl bg-[#0E0630] hover:bg-[#13093E] border border-[#03C988]/40 hover:border-[#03C988]/80 transition-all cursor-default shadow-sm">
               <div className="flex items-start justify-between mb-2">
-                <span className="text-orange-400 font-semibold text-xs flex items-center gap-1.5">
+                <span className="text-[#03C988] font-bold text-xs flex items-center gap-1.5">
                   <PenTool className="w-3.5 h-3.5" />
                   Ship 30 for 30 Essay
                 </span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-orange-400 transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#A0AEC0] group-hover:text-[#03C988] transition-colors" />
               </div>
-              <p className="text-slate-400 text-[12px] leading-snug">
+              <p className="text-[#CBD5E1] text-[12px] leading-snug">
                 Type{' '}
-                <code className="text-orange-300 font-mono text-[11px] bg-orange-500/12 px-1.5 py-0.5 rounded border border-orange-500/25">
+                <code className="text-[#07021C] font-mono text-[11px] bg-[#03C988] px-1.5 py-0.5 rounded font-bold">
                   /ship30for30
                 </code>{' '}
                 to transform insights into a viral atomic essay.
@@ -236,7 +236,7 @@ export const MessageList: React.FC<MessageListProps> = ({
             {/* Assistant avatar */}
             {!isUser && (
               <div className="flex-shrink-0 mt-1">
-                <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-violet-500 to-violet-700 p-1 flex items-center justify-center shadow-md shadow-violet-500/25 ring-1 ring-violet-400/20">
+                <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-[#00337C] to-[#03C988] p-1 flex items-center justify-center shadow-md shadow-[#03C988]/25 ring-1 ring-white/20">
                   <img src="/logo.png" alt="Lenny Assistant" className="w-full h-full object-contain filter drop-shadow" />
                 </div>
               </div>
@@ -247,36 +247,36 @@ export const MessageList: React.FC<MessageListProps> = ({
               className={`
                 relative group rounded-2xl transition-all
                 ${isUser
-                  ? 'max-w-[85%] sm:max-w-2xl bg-[#18103A] border border-violet-500/25 text-slate-100 rounded-tr-sm px-4 py-3 text-sm shadow-lg shadow-violet-900/20'
-                  : 'w-full bg-[#0D1322] border border-white/[0.07] text-slate-200 rounded-tl-sm px-5 py-4'
+                  ? 'max-w-[85%] sm:max-w-2xl bg-[#13005A] border border-[#1C82AD]/40 text-white rounded-tr-sm px-4 py-3 text-sm shadow-md'
+                  : 'w-full bg-[#0E0630] border border-[#1C82AD]/25 text-[#F3F4F6] rounded-tl-sm px-5 py-4 shadow-sm'
                 }
               `}
             >
               {/* Assistant message header */}
               {!isUser && (
-                <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-white/[0.06] text-[11px]">
+                <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#1C82AD]/20 text-[11px]">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-slate-200 tracking-tight">Lenny Growth Advisor</span>
+                    <span className="font-semibold text-white tracking-tight">Lenny Growth Advisor</span>
                     {msg.model && (
-                      <span className="text-[10px] bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 rounded font-mono text-violet-300">
+                      <span className="text-[10px] bg-[#00337C]/40 border border-[#1C82AD]/30 px-1.5 py-0.5 rounded font-mono text-[#03C988]">
                         {msg.model}
                       </span>
                     )}
                   </div>
                   <div className="flex items-center gap-3">
                     {msg.latency_ms && msg.latency_ms > 0 && (
-                      <span className="flex items-center gap-1 text-[10px] text-slate-500 font-mono">
-                        <Clock className="w-2.5 h-2.5" />
+                      <span className="flex items-center gap-1 text-[10px] text-[#A0AEC0] font-mono">
+                        <Clock className="w-2.5 h-2.5 text-[#1C82AD]" />
                         {(msg.latency_ms / 1000).toFixed(2)}s
                       </span>
                     )}
                     <button
                       onClick={() => handleCopy(msg.content, msg.id)}
-                      className="text-slate-500 hover:text-slate-300 p-0.5 rounded transition-colors"
+                      className="text-[#A0AEC0] hover:text-white p-0.5 rounded transition-colors"
                       title="Copy response"
                     >
                       {copiedId === msg.id
-                        ? <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        ? <Check className="w-3.5 h-3.5 text-[#03C988]" />
                         : <Copy className="w-3.5 h-3.5" />
                       }
                     </button>
@@ -291,23 +291,23 @@ export const MessageList: React.FC<MessageListProps> = ({
 
               {/* Artifact chips */}
               {msg.artifacts && msg.artifacts.length > 0 && (
-                <div className="mt-4 pt-3.5 border-t border-white/[0.06] flex flex-wrap gap-2">
+                <div className="mt-4 pt-3.5 border-t border-[#1C82AD]/20 flex flex-wrap gap-2">
                   {msg.artifacts.map((art) => (
                     <button
                       key={art.id}
                       onClick={() => onOpenArtifact?.(art)}
                       className="
                         group flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold
-                        bg-violet-500/10 hover:bg-violet-500/18 border border-violet-500/30
-                        text-violet-200 transition-all shadow-sm
+                        bg-[#03C988]/15 hover:bg-[#03C988]/25 border border-[#03C988]/40
+                        text-[#03C988] transition-all shadow-sm
                       "
                     >
-                      <Code2 className="w-3.5 h-3.5 text-violet-400" />
+                      <Code2 className="w-3.5 h-3.5 text-[#03C988]" />
                       <span>{art.title}</span>
-                      <span className="text-[9.5px] bg-violet-500/25 px-1.5 py-0.5 rounded uppercase font-mono font-bold text-violet-300">
+                      <span className="text-[9.5px] bg-[#03C988] text-[#07021C] px-1.5 py-0.5 rounded uppercase font-mono font-bold">
                         {art.artifact_type}
                       </span>
-                      <Eye className="w-3 h-3 ml-0.5 text-violet-400 group-hover:translate-x-0.5 transition-transform" />
+                      <Eye className="w-3 h-3 ml-0.5 text-[#03C988] group-hover:translate-x-0.5 transition-transform" />
                     </button>
                   ))}
                 </div>
@@ -333,8 +333,8 @@ export const MessageList: React.FC<MessageListProps> = ({
             {/* User avatar */}
             {isUser && (
               <div className="flex-shrink-0 mt-1">
-                <div className="w-7 h-7 rounded-xl bg-[#1C1535] border border-violet-700/40 flex items-center justify-center shadow-md">
-                  <User className="w-3.5 h-3.5 text-violet-300" />
+                <div className="w-7 h-7 rounded-xl bg-[#13005A] border border-[#1C82AD]/40 flex items-center justify-center shadow-md">
+                  <User className="w-3.5 h-3.5 text-[#03C988]" />
                 </div>
               </div>
             )}
@@ -346,11 +346,11 @@ export const MessageList: React.FC<MessageListProps> = ({
       {isStreaming && thinkingStage && (
         <div className="
           flex gap-3 max-w-4xl mx-auto items-center
-          text-xs text-violet-300
-          bg-[#0E0C1F] border border-violet-500/30
+          text-xs text-white
+          bg-[#0E0630] border border-[#1C82AD]/40
           rounded-xl px-4 py-3 shadow-sm animate-fade-up
         ">
-          <Sparkles className="w-4 h-4 text-violet-400 animate-spin flex-shrink-0" />
+          <Sparkles className="w-4 h-4 text-[#03C988] animate-spin flex-shrink-0" />
           <span className="font-medium tracking-wide">{thinkingStage.message}</span>
         </div>
       )}

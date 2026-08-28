@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, MessageSquare, Trash2, Database, Cpu, Sparkles, CheckCircle2, Zap } from 'lucide-react';
+import { Plus, MessageSquare, Trash2, Database, Cpu, CheckCircle2, Zap } from 'lucide-react';
 import { Session, HealthStatus, IngestionStatus } from '../../types';
 
 interface SidebarProps {
@@ -45,10 +45,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className={`
         w-72 flex-shrink-0 flex flex-col h-full z-30 transition-transform duration-300
-        bg-[#08091200] md:translate-x-0
+        bg-[#0B0424] md:translate-x-0
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        border-r border-white/[0.06]
-        bg-gradient-to-b from-[#0A0C18] via-[#090B14] to-[#07090F]
+        border-r border-[#1C82AD]/20
       `}
     >
       {/* ── Brand Header ─────────────────────── */}
@@ -56,22 +55,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Logo mark */}
         <div className="flex items-center gap-3 mb-5">
           <div className="relative">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-violet-700 p-1.5 flex items-center justify-center shadow-lg shadow-violet-500/30 ring-1 ring-violet-400/20">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00337C] via-[#1C82AD] to-[#03C988] p-1.5 flex items-center justify-center shadow-lg shadow-[#03C988]/25 ring-1 ring-white/20">
               <img src="/logo.png" alt="Lenny Growth Logo" className="w-full h-full object-contain filter drop-shadow" />
             </div>
             {/* Glow behind logo */}
-            <div className="absolute inset-0 rounded-xl bg-violet-500 blur-md opacity-30 -z-10" />
+            <div className="absolute inset-0 rounded-xl bg-[#03C988] blur-md opacity-25 -z-10" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h1 className="font-display font-800 text-sm text-white tracking-tight leading-none">
                 Lenny Growth
               </h1>
-              <span className="text-[9px] font-mono font-700 px-1.5 py-0.5 bg-violet-500/15 text-violet-300 rounded border border-violet-500/30 uppercase tracking-widest">
+              <span className="text-[9px] font-mono font-700 px-1.5 py-0.5 bg-[#03C988]/20 text-[#03C988] rounded border border-[#03C988]/40 uppercase tracking-widest">
                 PRO
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-0.5 font-medium">AI Product & Growth Advisor</p>
+            <p className="text-[11px] text-[#A0AEC0] mt-0.5 font-medium">AI Product & Growth Advisor</p>
           </div>
         </div>
 
@@ -81,50 +80,49 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className="
             w-full group relative flex items-center justify-between
             py-2.5 px-4 rounded-xl font-semibold text-[12px]
-            bg-gradient-to-r from-violet-600 to-violet-700
-            hover:from-violet-500 hover:to-violet-600
-            text-white transition-all duration-150
-            shadow-lg shadow-violet-600/25
-            border border-violet-400/20
+            bg-gradient-to-r from-[#03C988] to-[#1C82AD] hover:from-[#02b378] hover:to-[#177196]
+            text-[#07021C] font-bold transition-all duration-150
+            shadow-md shadow-[#03C988]/20
+            border border-white/20
             active:scale-[0.98]
           "
         >
           <div className="flex items-center gap-2">
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-4 h-4 text-[#07021C] stroke-[2.5]" />
             <span>New Conversation</span>
           </div>
-          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[9.5px] bg-black/25 rounded text-violet-200 font-mono tracking-wide">⌘N</kbd>
+          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[9.5px] bg-[#07021C]/25 rounded text-[#07021C] font-mono font-bold tracking-wide">⌘N</kbd>
         </button>
       </div>
 
       {/* ── Model Engine Selector ─────────────── */}
       <div className="px-4 pb-3">
-        <div className="bg-[#0D1020] rounded-xl border border-white/[0.06] p-3">
+        <div className="bg-[#100732] rounded-xl border border-[#1C82AD]/25 p-3 shadow-sm">
           {/* Header row */}
           <div className="flex items-center justify-between mb-2.5">
-            <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-slate-400">
-              <Cpu className="w-3 h-3 text-violet-400" />
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]">
+              <Cpu className="w-3 h-3 text-[#1C82AD]" />
               Model Engine
             </span>
             {/* Status dot */}
             <span
               className={`flex items-center gap-1 text-[10px] font-mono font-medium ${
-                activeOnline ? 'text-emerald-400' : 'text-amber-400'
+                activeOnline ? 'text-[#03C988]' : 'text-[#F2A65A]'
               }`}
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${activeOnline ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${activeOnline ? 'bg-[#03C988]' : 'bg-[#F2A65A] animate-pulse'}`} />
               {activeOnline ? 'Online' : 'Offline'}
             </span>
           </div>
 
           {/* Segmented Controller */}
-          <div className="grid grid-cols-2 gap-1 bg-[#060810] p-1 rounded-lg border border-white/[0.04]">
+          <div className="grid grid-cols-2 gap-1 bg-[#08031D] p-1 rounded-lg border border-[#1C82AD]/20">
             <button
               onClick={() => onProviderChange('gemini')}
               className={`py-2 px-2 rounded-md text-[11px] font-semibold transition-all truncate text-center ${
                 provider === 'gemini'
-                  ? 'bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-md shadow-violet-600/30 border border-violet-400/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
+                  ? 'bg-[#1C82AD] text-white font-bold shadow-sm'
+                  : 'text-[#A0AEC0] hover:text-white hover:bg-white/[0.04]'
               }`}
             >
               {geminiLabel}
@@ -133,8 +131,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => onProviderChange('ollama')}
               className={`py-2 px-2 rounded-md text-[11px] font-semibold transition-all truncate text-center ${
                 provider === 'ollama'
-                  ? 'bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-md shadow-violet-600/30 border border-violet-400/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
+                  ? 'bg-[#1C82AD] text-white font-bold shadow-sm'
+                  : 'text-[#A0AEC0] hover:text-white hover:bg-white/[0.04]'
               }`}
             >
               {ollamaLabel}
@@ -142,14 +140,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Model full name */}
-          <div className="mt-2 px-1 text-[10px] text-slate-500 flex items-center justify-between">
+          <div className="mt-2 px-1 text-[10px] text-[#A0AEC0] flex items-center justify-between">
             <span className="truncate">
               {provider === 'gemini'
                 ? (health?.gemini_model || 'Google GenAI')
                 : (health?.ollama_model ? `Local · ${health.ollama_model}` : 'Local Ollama')}
             </span>
             {provider === 'ollama' && !ollamaOnline && (
-              <span className="text-amber-400 font-medium">Auto Failover</span>
+              <span className="text-[#03C988] font-medium">Auto Failover</span>
             )}
           </div>
         </div>
@@ -159,17 +157,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="flex-1 overflow-y-auto px-3 min-h-0">
         {/* Section label */}
         <div className="flex items-center justify-between px-2 py-2 mb-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Threads</span>
-          <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 bg-white/[0.05] text-slate-400 rounded border border-white/[0.06]">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#A0AEC0]">Threads</span>
+          <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 bg-[#100732] text-[#03C988] rounded border border-[#1C82AD]/25">
             {sessions.length}
           </span>
         </div>
 
         {sessions.length === 0 ? (
           <div className="text-center py-10 px-4">
-            <MessageSquare className="w-8 h-8 text-slate-600 mx-auto mb-3" />
-            <p className="text-xs font-medium text-slate-500">No conversations yet</p>
-            <p className="text-[11px] text-slate-600 mt-1">Ask a question or use /ship30for30 to begin.</p>
+            <MessageSquare className="w-8 h-8 text-[#1C82AD]/40 mx-auto mb-3" />
+            <p className="text-xs font-medium text-[#CBD5E1]">No conversations yet</p>
+            <p className="text-[11px] text-[#A0AEC0] mt-1">Ask a question or use /ship30for30 to begin.</p>
           </div>
         ) : (
           <div className="space-y-0.5">
@@ -185,19 +183,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     group relative flex items-center justify-between
                     p-2.5 rounded-xl cursor-pointer transition-all text-[12px]
                     ${isActive
-                      ? 'bg-violet-500/12 border border-violet-500/30 text-violet-200'
-                      : 'border border-transparent text-slate-400 hover:bg-white/[0.03] hover:text-slate-200 hover:border-white/[0.05]'
+                      ? 'bg-[#00337C]/35 border border-[#1C82AD]/50 text-white'
+                      : 'border border-transparent text-[#CBD5E1] hover:bg-[#100732] hover:text-white'
                     }
                   `}
                 >
                   {/* Active left accent bar */}
                   {isActive && (
-                    <div className="absolute left-0 top-1/4 bottom-1/4 w-0.5 bg-violet-400 rounded-r-full" />
+                    <div className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-[#03C988] rounded-r-full" />
                   )}
 
                   <div className="flex items-center gap-2.5 truncate pr-1">
                     <MessageSquare className={`w-3.5 h-3.5 flex-shrink-0 ${
-                      isActive ? 'text-violet-400' : 'text-slate-600 group-hover:text-slate-400'
+                      isActive ? 'text-[#03C988]' : 'text-[#1C82AD] group-hover:text-white'
                     }`} />
                     <span className="truncate font-medium">{s.title || 'Untitled Conversation'}</span>
                   </div>
@@ -207,7 +205,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       e.stopPropagation();
                       onDeleteSession(s.id);
                     }}
-                    className="opacity-0 group-hover:opacity-100 p-1 hover:text-rose-400 rounded-lg transition-all text-slate-500"
+                    className="opacity-0 group-hover:opacity-100 p-1 hover:text-rose-400 rounded-lg transition-all text-[#A0AEC0]"
                     title="Delete thread"
                   >
                     <Trash2 className="w-3 h-3" />
@@ -220,22 +218,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* ── Knowledge Base Footer ─────────────── */}
-      <div className="p-4 border-t border-white/[0.06] bg-[#060810]/80">
+      <div className="p-4 border-t border-[#1C82AD]/20 bg-[#08031D]">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
-            <Database className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="flex items-center gap-1.5 text-[11px] text-[#CBD5E1] font-medium">
+            <Database className="w-3.5 h-3.5 text-[#03C988]" />
             Lenny Transcripts
           </span>
-          <span className="font-mono font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 text-[10px]">
+          <span className="font-mono font-semibold text-[#03C988] bg-[#03C988]/15 px-2 py-0.5 rounded border border-[#03C988]/30 text-[10px]">
             {ingestion?.total_chunks ? ingestion.total_chunks.toLocaleString() : '14,282'} chunks
           </span>
         </div>
-        <div className="flex items-center justify-between text-[10px] text-slate-500">
+        <div className="flex items-center justify-between text-[10px] text-[#A0AEC0]">
           <span className="flex items-center gap-1">
-            <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />
+            <CheckCircle2 className="w-2.5 h-2.5 text-[#03C988]" />
             RRF Fusion + Reranker
           </span>
-          <span className="flex items-center gap-1 text-emerald-400 font-medium">
+          <span className="flex items-center gap-1 text-[#1C82AD] font-medium">
             <Zap className="w-2.5 h-2.5" />
             Active
           </span>

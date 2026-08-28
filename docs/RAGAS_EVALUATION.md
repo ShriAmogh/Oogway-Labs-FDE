@@ -1,11 +1,9 @@
-# 🏆 RAGAS Benchmark Evaluation Report
+# RAGAS Benchmark Evaluation Report
 **System:** Lenny's Growth Assistant (Hybrid pgvector + FTS + RRF)  
 **Dataset:** 303 Episodes • 14,202 Dense Chunks • 6 Golden Multi-Guest Test Queries  
 **Date:** August 2026  
 
----
-
-## 📊 Executive Summary Metrics
+--- ## Executive Summary Metrics
 
 | Metric | Score | What It Verifies |
 | :--- | :---: | :--- |
@@ -15,9 +13,7 @@
 | **Context Recall** | **0.72** | Did retrieval find all the information needed to answer? |
 | **Composite RAGAS Score** | **0.84** | **Overall End-to-End System Performance** |
 
----
-
-## 🧪 Detailed Per-Query Results
+--- ## Detailed Per-Query Results
 
 | Test Query & Guest | Faithfulness | Relevancy | Precision | Recall | RAGAS Score |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -28,9 +24,7 @@
 | **Marty Cagan**<br>*What is the difference between a product operating...* | `0.97` | `0.96` | `1.00` | `1.00` | **`0.98`** |
 | **None**<br>*How do I calculate the gravitational constant of J...* | `0.85` | `0.86` | `0.00` | `0.00` | **`0.43`** |
 
----
-
-## 🔬 Methodology
+--- ## Methodology
 1. **Faithfulness**: Atomic claim verification against combined retrieved transcript context strings.
 2. **Answer Relevancy**: Cosine embedding similarity between query semantic intent and synthesized answer takeaways.
 3. **Context Precision**: Rank-weighted Mean Average Precision ($MAP@K$) of relevant chunks returned by RRF fusion ($k=60$).

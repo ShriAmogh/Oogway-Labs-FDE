@@ -6,20 +6,20 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.logging import logger
 from app.agents.base import BaseAgent, AgentEvent
-from app.agents.tools.rag_search_tool import execute_rag_search
+from app.agents.tools.rag_search_tool import execute_rag_search, is_meta_conversational_query
 from app.agents.tools.ship30_essay_tool import SHIP30_SYSTEM_PROMPT, format_ship30_prompt
 from app.agents.tools.artifact_gen_tool import parse_generated_artifacts
 
 DEFAULT_OLLAMA_SYSTEM_PROMPT = """You are "The Lenny Growth Assistant", a local AI advisor for Product Managers and Growth Leaders.
-Your expertise is strictly grounded in the knowledge base of Lenny's Podcast transcripts.
+Your expertise is grounded in the knowledge base of Lenny's Podcast transcripts.
 
 Guidelines:
-1. Synthesize & Explain: When relevant transcript excerpts are provided in the context below, synthesize a comprehensive, tactical, and structured response explaining the guest's core frameworks, examples, and advice.
-2. Inline Citations: ALWAYS insert inline citations in square brackets directly after factual claims, frameworks, or advice, formatted as `[<Guest Name> – <Episode Topic>, Source <N>]` or `[Source <N>]` (e.g. `[Brian Chesky – New Playbook, Source 1]`).
-3. Strict Refusal Rule: ONLY refuse if the retrieved context is empty or marked as NO_GROUNDED_TRANSCRIPTS_FOUND (i.e. the topic is not covered in Lenny's podcast archive). In that case, respond exactly:
+1. Synthesize & Ground: When transcript excerpts are provided in the context below, synthesize a comprehensive, tactical, and structured response explaining the guest's core frameworks, examples, and advice.
+2. Inline Citations: When citing transcript sources, insert inline citations formatted as `[<Guest Name> – <Episode Topic>, Source <N>]` or `[Source <N>]`.
+3. Conversational Context & Memory: You have full memory of this ongoing conversation. When the user asks about previous questions, earlier discussion points, or refers back to something said earlier in this conversation (e.g. 'what was the previous question asked', 'explain point 2 further'), answer accurately and directly from the conversation history.
+4. Strict Refusal Rule: ONLY refuse if the topic is not covered in Lenny's podcast archive (context is NO_GROUNDED_TRANSCRIPTS_FOUND) and the question is not a conversational history question. In that case, respond exactly:
 "I don't have sufficient evidence in the transcript knowledge base to answer that."
-4. When transcript sources are present in the context, ALWAYS answer by breaking down the insights, playbooks, and frameworks from those sources.
-5. You can generate formatted artifacts using:
+5. Artifacts: You can generate formatted artifacts using:
 ```artifact
 title: "<Title>"
 type: "markdown" | "html"
@@ -74,11 +74,12 @@ class OllamaAgent(BaseAgent):
     ) -> AsyncGenerator[AgentEvent, None]:
         selected_model = model_name or settings.OLLAMA_MODEL or "llama3.2"
         full_response_text = ""
+        is_meta = is_meta_conversational_query(query)
         
         # Step 1: Execute Hybrid RAG Search
-        yield AgentEvent(event="thinking", data={"stage": "retrieving", "message": "Searching local transcript index..."})
+        yield AgentEvent(event="thinking", data={"stage": "retrieving", "message": "Searching local transcript index..." if not is_meta else "Reviewing conversation history..."})
         
-        context_str, citations = await execute_rag_search(self.db, query, top_k=settings.FINAL_TOP_K)
+        context_str, citations = await execute_rag_search(self.db, query, messages=messages, top_k=settings.FINAL_TOP_K)
         
         for cit in citations:
             yield AgentEvent(event="citation", data=cit)
@@ -90,6 +91,8 @@ class OllamaAgent(BaseAgent):
         
         if enable_ship30:
             user_content = format_ship30_prompt(query, context_str)
+        elif is_meta or not context_str:
+            user_content = query
         else:
             user_content = f"""
 [Lenny's Podcast Transcript Knowledge Base]
@@ -102,8 +105,9 @@ Question: {query}
 
         # Step 3: Stream from Ollama API
         ollama_messages = [{"role": "system", "content": system_prompt}]
-        for m in messages[-4:]:
-            ollama_messages.append({"role": m.get("role", "user"), "content": m.get("content", "")})
+        for m in messages[-6:]:
+            role = "assistant" if m.get("role") in ["assistant", "model"] else "user"
+            ollama_messages.append({"role": role, "content": m.get("content", "")})
         ollama_messages.append({"role": "user", "content": user_content})
 
         try:
@@ -118,7 +122,6 @@ Question: {query}
                         tags_data = tags_res.json()
                         available_names = [m.get("name", "") for m in tags_data.get("models", [])]
                         if model_to_use not in available_names:
-                            # Match prefix or substring (e.g. qwen vs qwen2.5:1.5b)
                             for av in available_names:
                                 if model_to_use.split(":")[0] in av or av.split(":")[0] in model_to_use:
                                     model_to_use = av

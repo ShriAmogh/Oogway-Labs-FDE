@@ -1,9 +1,7 @@
 # Product Requirements Document (PRD)
 ## The Lenny Growth Assistant
 
----
-
-## 1. Executive Summary & Discovery Brief
+--- ## 1. Executive Summary & Discovery Brief
 
 ### 1.1 User & Problem Framing
 - **Primary User**: Product Managers, Growth Practitioners, Founders, and Strategy Operators.
@@ -39,9 +37,7 @@
 - **Risk 3: Local Ollama unavailability on evaluator's machine.**
   - *Mitigation*: Automatic health-check probing with graceful fallback to Google Gemini or clear user guidance in UI.
 
----
-
-## 2. Functional Requirements
+--- ## 2. Functional Requirements
 
 ### 2.1 Conversational Chat & Streaming
 - Real-time token streaming via Server-Sent Events (SSE) `/api/v1/chat/stream`.
@@ -64,9 +60,7 @@
 - Dual-tab interface: **Preview** (Live sandboxed HTML or rendered Markdown) and **Code** (raw syntax with Copy/Download buttons).
 - Support for multiple artifacts generated in a single session with history tab navigation.
 
----
-
-## 3. Acceptance Criteria
+--- ## 3. Acceptance Criteria
 
 1. **AC-1 (Grounding & Citations)**: When asked "What is Brian Chesky's advice on Founder Mode?", the assistant responds with Chesky's specific insights and displays a citation badge referencing Brian Chesky's episode.
 2. **AC-2 (Out-of-Domain Safety)**: When asked "How do I bake sourdough bread?", the assistant explicitly states that Lenny's podcast does not contain sourdough baking recipes.

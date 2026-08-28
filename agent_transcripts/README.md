@@ -1,11 +1,9 @@
-# 🤖 Coding Agent Development Transcripts & Engineering Log
+# Coding Agent Development Transcripts & Engineering Log
 
 ## Overview
 This directory contains the engineering log, iteration history, failed attempts, and resolution trajectories for the construction of **"The Lenny Growth Assistant"** in accordance with **Deliverable 6** of the Forward Deployed Engineer Take-Home Assignment.
 
----
-
-## 1. Key Milestones Completed
+--- ## 1. Key Milestones Completed
 1. **Repository Ingestion & Hybrid Vector Indexing**:
    - Ingested **14,282 chunks** across Lenny's podcast transcript markdown files.
    - Built a PostgreSQL schema with `pgvector` for dense semantic search and `tsvector` for sparse keyword search.
@@ -30,9 +28,7 @@ This directory contains the engineering log, iteration history, failed attempts,
    - Side-by-side collapsible panel rendering live HTML/CSS widgets and Markdown documents.
    - Strict `bleach` HTML sanitization and iframe sandbox isolation (`sandbox="allow-scripts"`).
 
----
-
-## 2. Failed Attempts, Key Challenges & Resolutions
+--- ## 2. Failed Attempts, Key Challenges & Resolutions
 
 ### Challenge 1: Long Multi-Sentence Query Sparse Retrieval Dilution
 - **Issue**: When evaluating complex, 70-word product leadership prompts (e.g. *"I'm a product leader at a growing SaaS company... explain Brian Chesky's product philosophy..."*), PostgreSQL's `plainto_tsquery` diluted the query across generic SaaS keywords, returning lower-ranked guest chunks.
@@ -54,9 +50,7 @@ This directory contains the engineering log, iteration history, failed attempts,
 - **Root Cause**: The frontend maintained a global citation accumulator.
 - **Correction**: Scoped `sessionCitations` dynamically via React `useMemo` exclusively to the active session's message array (`messages = []` $\rightarrow$ `sourcesCount = 0`).
 
----
-
-## 3. Evaluation & Validation Run
+--- ## 3. Evaluation & Validation Run
 - **RAGAS Suite**: Run `python scripts/run_ragas_eval.py`
 - **Ship 30 for 30 Evaluator**: Run `python scripts/run_ship30_eval.py`
 - **Brian Chesky End-to-End Suite**: Run `python scripts/evaluate_chesky_ragas_and_ship30.py`

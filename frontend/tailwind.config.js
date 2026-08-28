@@ -8,36 +8,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg:         '#07090F',
-        panel:      '#0C0F1A',
-        raised:     '#111727',
-        'input-bg': '#0A0D16',
+        // Palette from user selection:
+        // #13005A (Deep Midnight / Dark Royal Navy)
+        // #00337C (Classic Deep Blue / Sapphire)
+        // #1C82AD (Electric Ocean Cyan / Cerulean Blue)
+        // #03C988 (Vibrant Emerald Mint / Neon Jade)
 
-        // Brand palette
-        violet: {
-          DEFAULT: '#7C3AED',
-          lite:    '#A78BFA',
-          deep:    '#5B21B6',
-          glow:    'rgba(124,58,237,0.4)',
+        palette: {
+          midnight: '#13005A',
+          navy:     '#00337C',
+          cyan:     '#1C82AD',
+          emerald:  '#03C988',
         },
-        orange: {
-          DEFAULT: '#F97316',
-          lite:    '#FB923C',
-          glow:    'rgba(249,115,22,0.35)',
+
+        // Dark modern theme background & panels using midnight & navy
+        bg:         '#07021C', // Darkest midnight tint
+        panel:      '#0E0630', // Deep midnight navy container
+        raised:     '#13005A', // Midnight raised surface
+        'input-bg': '#0A0322',
+
+        brand: {
+          DEFAULT: '#03C988', // Vibrant emerald mint for primary actions & highlights
+          light:   '#44E5AB',
+          dark:    '#029E6B',
         },
-        cyan: {
-          DEFAULT: '#06B6D4',
-          lite:    '#67E8F9',
-          glow:    'rgba(6,182,212,0.35)',
+
+        accent: {
+          DEFAULT: '#1C82AD', // Cerulean cyan for tools & citations
+          light:   '#4FB1DC',
+          dark:    '#00337C',
         },
-        emerald: {
-          DEFAULT: '#10B981',
-          lite:    '#6EE7B7',
-          glow:    'rgba(16,185,129,0.3)',
-        },
-        pink: {
-          DEFAULT: '#EC4899',
-          lite:    '#F9A8D4',
+
+        secondary: {
+          DEFAULT: '#00337C',
+          light:   '#1C82AD',
         }
       },
       fontFamily: {
@@ -46,25 +50,9 @@ export default {
         mono:      ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        'glow-violet': '0 0 40px -8px rgba(124,58,237,0.5)',
-        'glow-orange': '0 0 40px -8px rgba(249,115,22,0.4)',
-        'glow-cyan':   '0 0 40px -8px rgba(6,182,212,0.4)',
-        'glow-sm':     '0 0 20px -4px rgba(124,58,237,0.4)',
-      },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'fade-up':    'fadeUp 0.25s ease forwards',
-        'shimmer':    'shimmer 3s linear infinite',
-      },
-      keyframes: {
-        fadeUp: {
-          '0%':   { opacity: '0', transform: 'translateY(8px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        shimmer: {
-          '0%':   { backgroundPosition: '-200% center' },
-          '100%': { backgroundPosition: '200% center' },
-        }
+        'glow-emerald': '0 0 35px -8px rgba(3,201,136,0.45)',
+        'glow-cyan':    '0 0 35px -8px rgba(28,130,173,0.45)',
+        'glow-midnight':'0 0 35px -8px rgba(19,0,90,0.6)',
       }
     },
   },
