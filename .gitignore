@@ -5,11 +5,6 @@
 *.env.*
 !*.env.example
 
-# Assignment instructions
-Forward_Deployed_Engineer_Take_Home_Assignment.md
-Forward_Deployed_Engineer_Take_Home_Assignment.docx
-*.docx
-
 # Python
 __pycache__/
 *.py[cod]
