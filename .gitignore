@@ -5,6 +5,9 @@
 *.env.*
 !*.env.example
 
+# Large external dataset
+transcripts_data/
+
 # Python
 __pycache__/
 *.py[cod]
