@@ -23,17 +23,17 @@ class Settings(BaseSettings):
     
     # Database (PostgreSQL with pgvector)
     DATABASE_URL: str = Field(
-        default="postgresql+asyncpg://postgres:postgres@localhost:5432/lenny_growth",
+        default="postgresql+asyncpg://postgres:postgrespassword@localhost:5432/lenny_growth",
         env="DATABASE_URL"
     )
     
     # Cloud Model Provider: Google Gemini
-    GEMINI_API_KEY: str = Field(env="GEMINI_API_KEY")
-    GEMINI_MODEL: str = Field(env="GEMINI_MODEL")
+    GEMINI_API_KEY: str = Field(default="", env="GEMINI_API_KEY")
+    GEMINI_MODEL: str = Field(default="gemini-3.1-flash-lite", env="GEMINI_MODEL")
     
     # Local Model Provider: Ollama
     OLLAMA_BASE_URL: str = Field(default="http://localhost:11434", env="OLLAMA_BASE_URL")
-    OLLAMA_MODEL: str = Field(env="OLLAMA_MODEL")
+    OLLAMA_MODEL: str = Field(default="llama3.2", env="OLLAMA_MODEL")
     DEFAULT_PROVIDER: str = Field(default="gemini", env="DEFAULT_PROVIDER") # "gemini" or "ollama"
     
     # Embeddings & RAG
@@ -50,7 +50,7 @@ class Settings(BaseSettings):
     DENSE_TOP_K: int = 15
     SPARSE_TOP_K: int = 15
     FINAL_TOP_K: int = 5
-    MIN_SIMILARITY_THRESHOLD: float = 0.50
+    MIN_SIMILARITY_THRESHOLD: float = 0.28
     ENABLE_RERANKING: bool = True
     
     # Data Sources

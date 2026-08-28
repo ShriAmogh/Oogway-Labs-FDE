@@ -169,19 +169,37 @@ async def seed_sample_transcripts_if_empty(db: AsyncSession) -> int:
     # If transcripts archive does not exist locally, attempt automatic shallow clone
     if not target_data_dir:
         clone_dest = "/transcripts_data" if os.path.exists("/transcripts_data") else os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "transcripts_data")
-        logger.info(f"Transcripts directory not found. Auto-cloning ChatPRD archive into {clone_dest}...")
+        logger.info(f"Transcripts directory not found or empty. Auto-cloning ChatPRD archive into {clone_dest}...")
         try:
             import subprocess
+            temp_clone = "/tmp/transcripts_clone"
+            if os.path.exists(temp_clone):
+                import shutil
+                shutil.rmtree(temp_clone, ignore_errors=True)
+                
             subprocess.run(
-                ["git", "clone", "--depth", "1", "https://github.com/ChatPRD/lennys-podcast-transcripts.git", clone_dest],
+                ["git", "clone", "--depth", "1", "https://github.com/ChatPRD/lennys-podcast-transcripts.git", temp_clone],
                 check=True,
                 capture_output=True,
-                timeout=60
+                timeout=120
             )
+            
+            # Copy cloned content into destination
+            import shutil
+            os.makedirs(clone_dest, exist_ok=True)
+            for item in os.listdir(temp_clone):
+                s = os.path.join(temp_clone, item)
+                d = os.path.join(clone_dest, item)
+                if os.path.isdir(s):
+                    shutil.copytree(s, d, dirs_exist_ok=True)
+                else:
+                    shutil.copy2(s, d)
+                    
+            shutil.rmtree(temp_clone, ignore_errors=True)
             target_data_dir = os.path.join(clone_dest, "episodes") if os.path.exists(os.path.join(clone_dest, "episodes")) else clone_dest
-            logger.info("✅ Transcripts archive successfully downloaded.")
+            logger.info("Transcripts archive successfully downloaded.")
         except Exception as e:
-            logger.warning(f"Auto-clone skipped or failed ({e}). Proceeding with bundled sample seed.")
+            logger.warning(f"Auto-clone skipped or encountered notice: {e}. Proceeding with bundled sample seed.")
 
     if target_data_dir and os.path.exists(target_data_dir):
         files = glob.glob(os.path.join(target_data_dir, "**/*.md"), recursive=True)
