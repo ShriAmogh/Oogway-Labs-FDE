@@ -17,7 +17,7 @@ flowchart TD
     subgraph Backend ["Backend (FastAPI + Async Python)"]
         API["FastAPI REST & SSE Streaming (/api/v1/chat/stream)"]
         Router["Agent Router & Tool Dispatcher"]
-        EngineCloud["Google Gemini SDK (2.5 Flash)"]
+        EngineCloud["Google Gemini SDK (3.1 Flash Lite)"]
         EngineLocal["Local Ollama Client (llama3.2 / qwen2.5)"]
         
         subgraph RAG ["Hybrid RAG Engine"]
@@ -58,7 +58,7 @@ flowchart TD
    - Slices text into 600-token chunks with 150-token sliding overlap, automatically injecting episode and section headers.
 
 3. **Dual Model Engine (Google Gemini & Local Ollama)**:
-   - **Cloud Model**: Google Gemini 2.5 Flash via official `google-genai` SDK.
+   - **Cloud Model**: Google Gemini 3.1 Flash Lite via official `google-genai` SDK.
    - **Local Model (Mandatory Demo)**: Local Ollama instance (`llama3.2`, `mistral`, `qwen2.5`) with zero cloud cost.
    - Seamless runtime toggle from the sidebar with automated health-check fallback.
 
@@ -144,7 +144,7 @@ DATABASE_URL=postgresql+asyncpg://postgres:postgrespassword@localhost:5432/lenny
 
 # Google AI Studio API Configuration (Cloud Model Provider)
 GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
+GEMINI_MODEL=gemini-3.1-flash-lite
 
 # Local Ollama Configuration (Local Offline Model Provider)
 OLLAMA_BASE_URL=http://localhost:11434

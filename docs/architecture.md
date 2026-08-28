@@ -13,8 +13,8 @@ graph TD
         API --> AgentRouter["Agent Router"]
         API --> DB[("PostgreSQL 16 + pgvector (:5432)")]
         
-        AgentRouter -->|Cloud Option| GeminiAgent["Google Gemini 2.5 Flash"]
-        AgentRouter -->|Local Option| OllamaAgent["Local Ollama Client (:11434)"]
+        AgentRouter -->|Cloud Option| GeminiAgent["Google Gemini 3.1 Flash Lite"]
+        AgentRouter -->|Local Option| OllamaAgent["Local Ollama Client ()"]
         
         GeminiAgent --> RAG["Hybrid RAG Pipeline"]
         OllamaAgent --> RAG
@@ -147,7 +147,7 @@ Where $k = 60$. Chunks matching both semantic intent and exact named entities (e
 
 | Selected Provider | Primary Execution | Fallback Strategy |
 | :--- | :--- | :--- |
-| **Google Gemini (Cloud)** | `google-genai` SDK streaming (`gemini-2.5-flash`) | Emits grounded context directly if API key is invalid/missing. |
+| **Google Gemini (Cloud)** | `google-genai` SDK streaming (`gemini-3.1-flash-lite`) | Emits grounded context directly if API key is invalid/missing. |
 | **Local Ollama (Local)** | Local streaming via `http://localhost:11434/api/chat` | Automatic ping health-check; fails over to Gemini if Ollama is unreachable. |
 
 ---
