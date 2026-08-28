@@ -157,24 +157,49 @@ async def seed_sample_transcripts_if_empty(db: AsyncSession) -> int:
         os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "transcripts_data")
     ]
     
+    target_data_dir = None
     for r_dir in repo_dirs:
-        if os.path.exists(r_dir):
+        if os.path.exists(r_dir) and os.path.isdir(r_dir):
             files = glob.glob(os.path.join(r_dir, "**/*.md"), recursive=True)
             files = [f for f in files if not os.path.basename(f).upper().startswith("README") and not os.path.basename(f).upper().startswith("CLAUDE")]
             if files:
-                remaining_files = []
-                for f in files:
-                    parent_dir = os.path.basename(os.path.dirname(f))
-                    slug = parent_dir if os.path.basename(f).startswith("transcript") else os.path.splitext(os.path.basename(f))[0]
-                    if slug not in existing_slugs:
-                        remaining_files.append(f)
-                        
-                if remaining_files:
-                    logger.info(f"Found {len(existing_slugs)} indexed episodes. Ingesting {len(remaining_files)} remaining episodes from {r_dir}...")
-                    return await ingest_transcripts_from_directory(db, directory_path=r_dir, limit=None)
-                else:
-                    logger.info(f"Database already contains all {len(existing_slugs)} episodes ({current_count} indexed chunks).")
-                    return current_count
+                target_data_dir = r_dir
+                break
+
+    # If transcripts archive does not exist locally, attempt automatic shallow clone
+    if not target_data_dir:
+        clone_dest = "/transcripts_data" if os.path.exists("/transcripts_data") else os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "transcripts_data")
+        logger.info(f"Transcripts directory not found. Auto-cloning ChatPRD archive into {clone_dest}...")
+        try:
+            import subprocess
+            subprocess.run(
+                ["git", "clone", "--depth", "1", "https://github.com/ChatPRD/lennys-podcast-transcripts.git", clone_dest],
+                check=True,
+                capture_output=True,
+                timeout=60
+            )
+            target_data_dir = os.path.join(clone_dest, "episodes") if os.path.exists(os.path.join(clone_dest, "episodes")) else clone_dest
+            logger.info("✅ Transcripts archive successfully downloaded.")
+        except Exception as e:
+            logger.warning(f"Auto-clone skipped or failed ({e}). Proceeding with bundled sample seed.")
+
+    if target_data_dir and os.path.exists(target_data_dir):
+        files = glob.glob(os.path.join(target_data_dir, "**/*.md"), recursive=True)
+        files = [f for f in files if not os.path.basename(f).upper().startswith("README") and not os.path.basename(f).upper().startswith("CLAUDE")]
+        if files:
+            remaining_files = []
+            for f in files:
+                parent_dir = os.path.basename(os.path.dirname(f))
+                slug = parent_dir if os.path.basename(f).startswith("transcript") else os.path.splitext(os.path.basename(f))[0]
+                if slug not in existing_slugs:
+                    remaining_files.append(f)
+                    
+            if remaining_files:
+                logger.info(f"Found {len(existing_slugs)} indexed episodes. Ingesting {len(remaining_files)} episodes from {target_data_dir}...")
+                return await ingest_transcripts_from_directory(db, directory_path=target_data_dir, limit=None)
+            else:
+                logger.info(f"Database already contains all {len(existing_slugs)} episodes ({current_count} indexed chunks).")
+                return current_count
 
     if current_count > 0:
         logger.info(f"Database already contains {current_count} indexed chunks.")
